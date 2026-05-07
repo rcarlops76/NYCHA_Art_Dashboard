@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+  body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+         background:#0d1b2a;color:#e8d5b0;margin:0;padding:16px;}
+  h2   {color:white;font-size:15px;margin-bottom:4px;}
+  p    {color:#c9a96e;font-size:12px;font-family:monospace;margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th   {background:#1e2f45;color:#c9a96e;padding:8px 10px;
+         text-align:left;border-bottom:2px solid #c9a96e;}
+  td   {padding:7px 10px;border-bottom:1px solid #1e2f45;color:#e8d5b0;}
+  tr:hover td {background:#1e2f45;}
+  .count {color:#e74c3c;font-weight:bold;}
+</style></head><body>
+<h2>Arts Organizations within 0.5-mile radius</h2>
+<p>NYCHA: CHELSEA &nbsp;|&nbsp; Borough: MANHATTAN
+   &nbsp;|&nbsp; Total found:
+   <span class="count">60</span></p>
+<table class="dataframe arts-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>org_name</th>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>STREET_NUM</th>
+      <th>STREET_NAME</th>
+      <th>CITY</th>
+      <th>STATE</th>
+      <th>ZIP</th>
+      <th>BOROUGH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Museum at FIT</td>
+      <td>35</td>
+      <td>Museum at FIT</td>
+      <td>227</td>
+      <td>W 27th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>International Print Center New York (IPCNY)</td>
+      <td>39</td>
+      <td>International Print Center New York (IPCNY)</td>
+      <td>508</td>
+      <td>W 26th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Gagosian Gallery</td>
+      <td>41</td>
+      <td>Gagosian Gallery</td>
+      <td>555</td>
+      <td>W 24th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Hauser & Wirth New York</td>
+      <td>43</td>
+      <td>Hauser & Wirth New York</td>
+      <td>542</td>
+      <td>W 22nd St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Pace Gallery</td>
+      <td>44</td>
+      <td>Pace Gallery</td>
+      <td>540</td>
+      <td>W 25th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Lisson Gallery New York</td>
+      <td>46</td>
+      <td>Lisson Gallery New York</td>
+      <td>504</td>
+      <td>W 24th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Paula Cooper Gallery</td>
+      <td>48</td>
+      <td>Paula Cooper Gallery</td>
+      <td>534</td>
+      <td>W 21st St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Jack Shainman Gallery</td>
+      <td>50</td>
+      <td>Jack Shainman Gallery</td>
+      <td>513</td>
+      <td>W 20th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Lehmann Maupin Gallery</td>
+      <td>51</td>
+      <td>Lehmann Maupin Gallery</td>
+      <td>501</td>
+      <td>W 24th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Greene Naftali Gallery</td>
+      <td>52</td>
+      <td>Greene Naftali Gallery</td>
+      <td>508</td>
+      <td>W 26th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Tanya Bonakdar Gallery</td>
+      <td>53</td>
+      <td>Tanya Bonakdar Gallery</td>
+      <td>521</td>
+      <td>W 21st St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Printed Matter, Inc.</td>
+      <td>55</td>
+      <td>Printed Matter, Inc.</td>
+      <td>231</td>
+      <td>11th Ave</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>The Shed</td>
+      <td>70</td>
+      <td>The Shed</td>
+      <td>545</td>
+      <td>W 30th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Atlantic Theater Company</td>
+      <td>74</td>
+      <td>Atlantic Theater Company</td>
+      <td>336</td>
+      <td>W 20th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Fashion Institute of Technology (FIT)</td>
+      <td>98</td>
+      <td>Fashion Institute of Technology (FIT)</td>
+      <td>227</td>
+      <td>W 27th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Joan Mitchell Foundation</td>
+      <td>121</td>
+      <td>Joan Mitchell Foundation</td>
+      <td>545</td>
+      <td>W 25th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Robert Rauschenberg Foundation</td>
+      <td>122</td>
+      <td>Robert Rauschenberg Foundation</td>
+      <td>455</td>
+      <td>W 19th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Pace Prints (Pace Editions)</td>
+      <td>155</td>
+      <td>Pace Prints (Pace Editions)</td>
+      <td>521</td>
+      <td>W 26th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Metropolitan Opera Scenic Studios</td>
+      <td>158</td>
+      <td>Metropolitan Opera Scenic Studios</td>
+      <td>268</td>
+      <td>11th Ave</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>The Kitchen</td>
+      <td>192</td>
+      <td>The Kitchen</td>
+      <td>512</td>
+      <td>W 19th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Dia Art Foundation</td>
+      <td>193</td>
+      <td>Dia Art Foundation</td>
+      <td>537</td>
+      <td>W 22nd St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>AHL Foundation, Inc.</td>
+      <td>255</td>
+      <td>AHL Foundation, Inc.</td>
+      <td>—</td>
+      <td>420 West 23rd Street, #7A</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Alpha Workshops, Inc.</td>
+      <td>307</td>
+      <td>Alpha Workshops, Inc.</td>
+      <td>—</td>
+      <td>245 West 29th Street, Suite 12A</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>American Music Center, Inc.</td>
+      <td>334</td>
+      <td>American Music Center, Inc.</td>
+      <td>—</td>
+      <td>322 8th Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Aperture Foundation, Inc.</td>
+      <td>362</td>
+      <td>Aperture Foundation, Inc.</td>
+      <td>—</td>
+      <td>547 West 27th Street, 4th Floor</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Art Resources Transfer</td>
+      <td>392</td>
+      <td>Art Resources Transfer</td>
+      <td>—</td>
+      <td>526 W 26th St., #614</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Art Start, Inc.</td>
+      <td>395</td>
+      <td>Art Start, Inc.</td>
+      <td>—</td>
+      <td>526 West 26th Street Suite 501</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>ArtBridge Projects, Inc.</td>
+      <td>405</td>
+      <td>ArtBridge Projects, Inc.</td>
+      <td>—</td>
+      <td>430 W. 24th Street, Suite 1EE</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011-1154</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>ArtCouncil, Inc.</td>
+      <td>406</td>
+      <td>ArtCouncil, Inc.</td>
+      <td>—</td>
+      <td>210 Eleventh Avenue, Ste. 503</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>Cedar Lake, Inc.</td>
+      <td>674</td>
+      <td>Cedar Lake, Inc.</td>
+      <td>—</td>
+      <td>547 West 26th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>Chelsea Art Museum</td>
+      <td>710</td>
+      <td>Chelsea Art Museum</td>
+      <td>—</td>
+      <td>556 West 22nd Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>Chelsea Symphony</td>
+      <td>714</td>
+      <td>Chelsea Symphony</td>
+      <td>—</td>
+      <td>245 Eighth Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>Children's Theatre Company of New York</td>
+      <td>727</td>
+      <td>Children's Theatre Company of New York</td>
+      <td>—</td>
+      <td>526 West 26th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>Clive Barnes Foundation Incorporated</td>
+      <td>769</td>
+      <td>Clive Barnes Foundation Incorporated</td>
+      <td>—</td>
+      <td>241 West 23rd Street, 4A</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>Coyote REP Theatre Company</td>
+      <td>827</td>
+      <td>Coyote REP Theatre Company</td>
+      <td>—</td>
+      <td>360 W 28th St, Apt. 4A</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>CultureNOW, Inc.</td>
+      <td>850</td>
+      <td>CultureNOW, Inc.</td>
+      <td>—</td>
+      <td>511 West 25th Street, Ste. 707</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>Dia Center for the Arts</td>
+      <td>904</td>
+      <td>Dia Center for the Arts</td>
+      <td>—</td>
+      <td>535 West 22nd Street, 4th Floor</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>Educational Broadcasting Corporation</td>
+      <td>963</td>
+      <td>Educational Broadcasting Corporation</td>
+      <td>—</td>
+      <td>450 West 33rd Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>Electronic Arts Intermix</td>
+      <td>977</td>
+      <td>Electronic Arts Intermix</td>
+      <td>—</td>
+      <td>535 West 22nd Street, Fifth Floor</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>Generations Project, Inc.</td>
+      <td>1120</td>
+      <td>Generations Project, Inc.</td>
+      <td>—</td>
+      <td>601 W 26th Street, Rm 325-268</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>Haleakala, Inc.</td>
+      <td>1181</td>
+      <td>Haleakala, Inc.</td>
+      <td>—</td>
+      <td>512 West 19th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>Hudson Guild, Inc.</td>
+      <td>1245</td>
+      <td>Hudson Guild, Inc.</td>
+      <td>—</td>
+      <td>441 West 26th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>International Print Center New York</td>
+      <td>1303</td>
+      <td>International Print Center New York</td>
+      <td>—</td>
+      <td>526 West 26th Street, Room 824</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>Jewish Children's Learning Lab</td>
+      <td>1333</td>
+      <td>Jewish Children's Learning Lab</td>
+      <td>—</td>
+      <td>515 West 20th Street, 4E</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>Laurie Foundation for the Performing Arts, Inc.</td>
+      <td>1429</td>
+      <td>Laurie Foundation for the Performing Arts, Inc.</td>
+      <td>—</td>
+      <td>547 West 26th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>Leviathan Lab, Inc.</td>
+      <td>1445</td>
+      <td>Leviathan Lab, Inc.</td>
+      <td>—</td>
+      <td>425 West 18th Street, #11F</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011-3881</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>Living Traditions, Inc.</td>
+      <td>1475</td>
+      <td>Living Traditions, Inc.</td>
+      <td>—</td>
+      <td>207 West 25th Street, 4th Floor</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>Lucille Lortel Theatre Foundation Inc.</td>
+      <td>1506</td>
+      <td>Lucille Lortel Theatre Foundation Inc.</td>
+      <td>—</td>
+      <td>322 8th Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>Megan Jill Paznik</td>
+      <td>1558</td>
+      <td>Megan Jill Paznik</td>
+      <td>—</td>
+      <td>275 West 22nd Street, Suite 2A</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>NYC Kids Project</td>
+      <td>1653</td>
+      <td>NYC Kids Project</td>
+      <td>—</td>
+      <td>311 West 24th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>Paris Review Foundation, Inc.</td>
+      <td>1873</td>
+      <td>Paris Review Foundation, Inc.</td>
+      <td>—</td>
+      <td>544 West 27th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>Polaris Productions Inc.</td>
+      <td>1927</td>
+      <td>Polaris Productions Inc.</td>
+      <td>—</td>
+      <td>245 8th Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>Printed Matter, Inc.</td>
+      <td>1941</td>
+      <td>Printed Matter, Inc.</td>
+      <td>—</td>
+      <td>231 Eleventh Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>Ripple Effect Artists, Inc.</td>
+      <td>2036</td>
+      <td>Ripple Effect Artists, Inc.</td>
+      <td>—</td>
+      <td>601 W. 26th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>Sachiyo Ito and Company, Inc.</td>
+      <td>2080</td>
+      <td>Sachiyo Ito and Company, Inc.</td>
+      <td>—</td>
+      <td>405 West 23rd Street, Ste. 4G</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>Shed NYC, Inc.</td>
+      <td>2124</td>
+      <td>Shed NYC, Inc.</td>
+      <td>—</td>
+      <td>545 West 30th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>Universal Communications Network, Inc.</td>
+      <td>2361</td>
+      <td>Universal Communications Network, Inc.</td>
+      <td>—</td>
+      <td>229 West 28th Street, Suite 1200</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>Visual AIDS for the Arts, Inc.</td>
+      <td>2391</td>
+      <td>Visual AIDS for the Arts, Inc.</td>
+      <td>—</td>
+      <td>526 West 26th Street, Ste. 510</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>Vortex Theater Company, Inc.</td>
+      <td>2405</td>
+      <td>Vortex Theater Company, Inc.</td>
+      <td>—</td>
+      <td>164 Eleventh Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>terraNOVA Theatre Collective, Inc.</td>
+      <td>2523</td>
+      <td>terraNOVA Theatre Collective, Inc.</td>
+      <td>—</td>
+      <td>401 West 24th Street, Apt. 8</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10011</td>
+      <td>Manhattan</td>
+    </tr>
+  </tbody>
+</table>
+</body></html>
