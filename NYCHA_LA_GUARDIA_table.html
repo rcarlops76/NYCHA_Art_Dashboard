@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+  body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+         background:#0d1b2a;color:#e8d5b0;margin:0;padding:16px;}
+  h2   {color:white;font-size:15px;margin-bottom:4px;}
+  p    {color:#c9a96e;font-size:12px;font-family:monospace;margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th   {background:#1e2f45;color:#c9a96e;padding:8px 10px;
+         text-align:left;border-bottom:2px solid #c9a96e;}
+  td   {padding:7px 10px;border-bottom:1px solid #1e2f45;color:#e8d5b0;}
+  tr:hover td {background:#1e2f45;}
+  .count {color:#e74c3c;font-weight:bold;}
+</style></head><body>
+<h2>Arts Organizations within 0.5-mile radius</h2>
+<p>NYCHA: LA GUARDIA &nbsp;|&nbsp; Borough: MANHATTAN
+   &nbsp;|&nbsp; Total found:
+   <span class="count">17</span></p>
+<table class="dataframe arts-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>org_name</th>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>STREET_NUM</th>
+      <th>STREET_NAME</th>
+      <th>CITY</th>
+      <th>STATE</th>
+      <th>ZIP</th>
+      <th>BOROUGH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Abrons Arts Center Gallery</td>
+      <td>57</td>
+      <td>Abrons Arts Center Gallery</td>
+      <td>466</td>
+      <td>Grand St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Metrograph</td>
+      <td>204</td>
+      <td>Metrograph</td>
+      <td>7</td>
+      <td>Ludlow St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Abrons Arts Center (Henry Street Settlement)</td>
+      <td>210</td>
+      <td>Abrons Arts Center (Henry Street Settlement)</td>
+      <td>466</td>
+      <td>Grand St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NADA New York (New Art Dealers Alliance)</td>
+      <td>229</td>
+      <td>NADA New York (New Art Dealers Alliance)</td>
+      <td>311</td>
+      <td>E Broadway</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Art Resources for Teachers and Students, Inc.</td>
+      <td>393</td>
+      <td>Art Resources for Teachers and Students, Inc.</td>
+      <td>—</td>
+      <td>134 Henry Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>11372</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Educational Alliance, Inc.</td>
+      <td>962</td>
+      <td>Educational Alliance, Inc.</td>
+      <td>—</td>
+      <td>197 East Broadway</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Henry Street Settlement</td>
+      <td>1209</td>
+      <td>Henry Street Settlement</td>
+      <td>—</td>
+      <td>265 Henry Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Immigrant Social Services, Inc.</td>
+      <td>1268</td>
+      <td>Immigrant Social Services, Inc.</td>
+      <td>—</td>
+      <td>137 Henry Street, First Floor</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Juneteenth Festival, Inc.</td>
+      <td>1357</td>
+      <td>Juneteenth Festival, Inc.</td>
+      <td>—</td>
+      <td>605 Water Street, Apt. 21B</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Loft Practice Organization, Inc.</td>
+      <td>1483</td>
+      <td>Loft Practice Organization, Inc.</td>
+      <td>—</td>
+      <td>212 E Broadway 1103g</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Lower East Side Conservancy</td>
+      <td>1498</td>
+      <td>Lower East Side Conservancy</td>
+      <td>—</td>
+      <td>235 East Broadway</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Lower East Side District Management Association</td>
+      <td>1499</td>
+      <td>Lower East Side District Management Association</td>
+      <td>—</td>
+      <td>54 Orchard Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Lower East Side Performing Arts, Inc.</td>
+      <td>1501</td>
+      <td>Lower East Side Performing Arts, Inc.</td>
+      <td>—</td>
+      <td>268 East Broadway</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Museum at Eldridge Street</td>
+      <td>1609</td>
+      <td>Museum at Eldridge Street</td>
+      <td>—</td>
+      <td>12 Eldridge Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>New York Chinese Cultural Center, Inc.</td>
+      <td>1727</td>
+      <td>New York Chinese Cultural Center, Inc.</td>
+      <td>—</td>
+      <td>137 Henry Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>St. Augustine's Project, Inc</td>
+      <td>2188</td>
+      <td>St. Augustine's Project, Inc</td>
+      <td>—</td>
+      <td>333 Madison Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Two Bridges Neighborhood Council, Inc.</td>
+      <td>2340</td>
+      <td>Two Bridges Neighborhood Council, Inc.</td>
+      <td>—</td>
+      <td>275 Cherry St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+  </tbody>
+</table>
+</body></html>
