@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+  body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+         background:#0d1b2a;color:#e8d5b0;margin:0;padding:16px;}
+  h2   {color:white;font-size:15px;margin-bottom:4px;}
+  p    {color:#c9a96e;font-size:12px;font-family:monospace;margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th   {background:#1e2f45;color:#c9a96e;padding:8px 10px;
+         text-align:left;border-bottom:2px solid #c9a96e;}
+  td   {padding:7px 10px;border-bottom:1px solid #1e2f45;color:#e8d5b0;}
+  tr:hover td {background:#1e2f45;}
+  .count {color:#e74c3c;font-weight:bold;}
+</style></head><body>
+<h2>Arts Organizations within 0.5-mile radius</h2>
+<p>NYCHA: GOWANUS &nbsp;|&nbsp; Borough: BROOKLYN
+   &nbsp;|&nbsp; Total found:
+   <span class="count">13</span></p>
+<table class="dataframe arts-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>org_name</th>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>STREET_NUM</th>
+      <th>STREET_NAME</th>
+      <th>CITY</th>
+      <th>STATE</th>
+      <th>ZIP</th>
+      <th>BOROUGH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Beam Center, Inc.</td>
+      <td>512</td>
+      <td>Beam Center, Inc.</td>
+      <td>—</td>
+      <td>47 Bergen Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Brooklyn Book Festival, Inc.</td>
+      <td>599</td>
+      <td>Brooklyn Book Festival, Inc.</td>
+      <td>—</td>
+      <td>249 Smith Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11231</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Collapsable Giraffe, Inc.</td>
+      <td>780</td>
+      <td>Collapsable Giraffe, Inc.</td>
+      <td>—</td>
+      <td>251 Pacific Street, Apt. 25</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Gowanus Canal Conservancy, Inc.</td>
+      <td>1147</td>
+      <td>Gowanus Canal Conservancy, Inc.</td>
+      <td>—</td>
+      <td>543 Union Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>11215</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Immaterial Incorporated</td>
+      <td>1265</td>
+      <td>Immaterial Incorporated</td>
+      <td>—</td>
+      <td>181 Wyckoff Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Promote Art Works, Inc.</td>
+      <td>1948</td>
+      <td>Promote Art Works, Inc.</td>
+      <td>—</td>
+      <td>123 Smith Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Proteus Gowanus Interdisciplinary Gallery, Inc.</td>
+      <td>1951</td>
+      <td>Proteus Gowanus Interdisciplinary Gallery, Inc.</td>
+      <td>—</td>
+      <td>543 UNION ST STE 1C</td>
+      <td>BROOKLYN</td>
+      <td>NY</td>
+      <td>11215</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Spiderwoman Theater Workshop, Inc.</td>
+      <td>2185</td>
+      <td>Spiderwoman Theater Workshop, Inc.</td>
+      <td>—</td>
+      <td>333 DeGraw Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11231</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Street Lab, Inc.</td>
+      <td>2226</td>
+      <td>Street Lab, Inc.</td>
+      <td>—</td>
+      <td>280 Nevins Street, #2-9</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Theater Mitu, Inc.</td>
+      <td>2278</td>
+      <td>Theater Mitu, Inc.</td>
+      <td>—</td>
+      <td>578 Sackett Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Vertical Player Repertory, Ltd.</td>
+      <td>2384</td>
+      <td>Vertical Player Repertory, Ltd.</td>
+      <td>—</td>
+      <td>219 Court St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Watson Arts, Inc</td>
+      <td>2418</td>
+      <td>Watson Arts, Inc</td>
+      <td>—</td>
+      <td>147 Bergen Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Woodshed Collective, Inc.</td>
+      <td>2457</td>
+      <td>Woodshed Collective, Inc.</td>
+      <td>—</td>
+      <td>366 union Street #4M</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>11231</td>
+      <td>Brooklyn</td>
+    </tr>
+  </tbody>
+</table>
+</body></html>
