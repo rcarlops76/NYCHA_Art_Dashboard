@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+  body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+         background:#0d1b2a;color:#e8d5b0;margin:0;padding:16px;}
+  h2   {color:white;font-size:15px;margin-bottom:4px;}
+  p    {color:#c9a96e;font-size:12px;font-family:monospace;margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th   {background:#1e2f45;color:#c9a96e;padding:8px 10px;
+         text-align:left;border-bottom:2px solid #c9a96e;}
+  td   {padding:7px 10px;border-bottom:1px solid #1e2f45;color:#e8d5b0;}
+  tr:hover td {background:#1e2f45;}
+  .count {color:#e74c3c;font-weight:bold;}
+</style></head><body>
+<h2>Arts Organizations within 0.5-mile radius</h2>
+<p>NYCHA: HARBORVIEW TERRACE &nbsp;|&nbsp; Borough: MANHATTAN
+   &nbsp;|&nbsp; Total found:
+   <span class="count">23</span></p>
+<table class="dataframe arts-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>org_name</th>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>STREET_NUM</th>
+      <th>STREET_NAME</th>
+      <th>CITY</th>
+      <th>STATE</th>
+      <th>ZIP</th>
+      <th>BOROUGH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Alvin Ailey American Dance Theater</td>
+      <td>84</td>
+      <td>Alvin Ailey American Dance Theater</td>
+      <td>405</td>
+      <td>W 55th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Laumont Photographics</td>
+      <td>156</td>
+      <td>Laumont Photographics</td>
+      <td>333</td>
+      <td>W 52nd St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>52nd Street Project, Inc.</td>
+      <td>241</td>
+      <td>52nd Street Project, Inc.</td>
+      <td>—</td>
+      <td>789 Tenth Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>An Claidheamh Soluis, Inc.</td>
+      <td>352</td>
+      <td>An Claidheamh Soluis, Inc.</td>
+      <td>—</td>
+      <td>553 West 51st Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Ars Nova Theater I, Inc.</td>
+      <td>379</td>
+      <td>Ars Nova Theater I, Inc.</td>
+      <td>—</td>
+      <td>511 West 54th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Artist Coworking Space Inc.</td>
+      <td>411</td>
+      <td>Artist Coworking Space Inc.</td>
+      <td>—</td>
+      <td>500 W. 52nd Street #3W</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Ballet Next, Inc.</td>
+      <td>488</td>
+      <td>Ballet Next, Inc.</td>
+      <td>—</td>
+      <td>243 West 60th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10023</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>C4 Choral Composer Conductor Collective</td>
+      <td>638</td>
+      <td>C4 Choral Composer Conductor Collective</td>
+      <td>—</td>
+      <td>500 West 52nd Street, #3W</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Cliplight Theatre Company, Inc.</td>
+      <td>768</td>
+      <td>Cliplight Theatre Company, Inc.</td>
+      <td>—</td>
+      <td>555 West 52nd Street, Apt. 806</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Ensemble Studio Theatre, Inc.</td>
+      <td>996</td>
+      <td>Ensemble Studio Theatre, Inc.</td>
+      <td>—</td>
+      <td>545 West 52nd Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>John Jay College Foundation</td>
+      <td>1347</td>
+      <td>John Jay College Foundation</td>
+      <td>—</td>
+      <td>899 Tenth Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Kundiman, Inc.</td>
+      <td>1399</td>
+      <td>Kundiman, Inc.</td>
+      <td>—</td>
+      <td>113 West 60th Street, Room 924</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10023</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Latin American Theatre Ensemble Inc.</td>
+      <td>1424</td>
+      <td>Latin American Theatre Ensemble Inc.</td>
+      <td>—</td>
+      <td>350 West 51st Street,  Apt. 13-D</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Looking Glass Theatre, Inc.</td>
+      <td>1490</td>
+      <td>Looking Glass Theatre, Inc.</td>
+      <td>—</td>
+      <td>422 West 57th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Manhattan Class Company, Inc.</td>
+      <td>1531</td>
+      <td>Manhattan Class Company, Inc.</td>
+      <td>—</td>
+      <td>511 West 52nd Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Manhattan Community Access Corporation</td>
+      <td>1532</td>
+      <td>Manhattan Community Access Corporation</td>
+      <td>—</td>
+      <td>537 West 59th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Medicine Show Theatre Ensemble, Inc.</td>
+      <td>1556</td>
+      <td>Medicine Show Theatre Ensemble, Inc.</td>
+      <td>—</td>
+      <td>549 West 52nd Street, Third Floor</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>New York Asian Symphony Orchestra, Inc.</td>
+      <td>1725</td>
+      <td>New York Asian Symphony Orchestra, Inc.</td>
+      <td>—</td>
+      <td>889 Ninth Avenue, Ste. 1</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>New York Theatre Barn</td>
+      <td>1774</td>
+      <td>New York Theatre Barn</td>
+      <td>—</td>
+      <td>401 W. 56th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Nouveau Classical Project</td>
+      <td>1799</td>
+      <td>Nouveau Classical Project</td>
+      <td>—</td>
+      <td>435 West 57th St, 3L</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>September Concert Foundation</td>
+      <td>2113</td>
+      <td>September Concert Foundation</td>
+      <td>—</td>
+      <td>601 West 57th St #37D</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>TOSOS II, Inc.</td>
+      <td>2250</td>
+      <td>TOSOS II, Inc.</td>
+      <td>—</td>
+      <td>688 10th Avenue, #4N</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Women's Interart Center, Inc.</td>
+      <td>2453</td>
+      <td>Women's Interart Center, Inc.</td>
+      <td>—</td>
+      <td>549 West 52nd Street, Third Floor</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10019</td>
+      <td>Manhattan</td>
+    </tr>
+  </tbody>
+</table>
+</body></html>
