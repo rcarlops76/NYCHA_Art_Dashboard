@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+  body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+         background:#0d1b2a;color:#e8d5b0;margin:0;padding:16px;}
+  h2   {color:white;font-size:15px;margin-bottom:4px;}
+  p    {color:#c9a96e;font-size:12px;font-family:monospace;margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th   {background:#1e2f45;color:#c9a96e;padding:8px 10px;
+         text-align:left;border-bottom:2px solid #c9a96e;}
+  td   {padding:7px 10px;border-bottom:1px solid #1e2f45;color:#e8d5b0;}
+  tr:hover td {background:#1e2f45;}
+  .count {color:#e74c3c;font-weight:bold;}
+</style></head><body>
+<h2>Arts Organizations within 0.5-mile radius</h2>
+<p>NYCHA: 154 WEST 84TH STREET &nbsp;|&nbsp; Borough: MANHATTAN
+   &nbsp;|&nbsp; Total found:
+   <span class="count">24</span></p>
+<table class="dataframe arts-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>org_name</th>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>STREET_NUM</th>
+      <th>STREET_NAME</th>
+      <th>CITY</th>
+      <th>STATE</th>
+      <th>ZIP</th>
+      <th>BOROUGH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>American Museum of Natural History</td>
+      <td>6</td>
+      <td>American Museum of Natural History</td>
+      <td>200</td>
+      <td>Central Park West</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>American Dance Guild, Inc.</td>
+      <td>318</td>
+      <td>American Dance Guild, Inc.</td>
+      <td>—</td>
+      <td>320 West 83rd Street, Apt. 7D</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Ballet Hispanico of New York, Inc.</td>
+      <td>487</td>
+      <td>Ballet Hispanico of New York, Inc.</td>
+      <td>—</td>
+      <td>167 West 89 Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Center at West Park, Inc.</td>
+      <td>676</td>
+      <td>Center at West Park, Inc.</td>
+      <td>—</td>
+      <td>165 West 86th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Children's Museum of Manhattan</td>
+      <td>724</td>
+      <td>Children's Museum of Manhattan</td>
+      <td>—</td>
+      <td>212 West 83rd Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>DMF Youth, Inc.</td>
+      <td>860</td>
+      <td>DMF Youth, Inc.</td>
+      <td>—</td>
+      <td>320 West 83rd Street Suite 1A</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>DOME Project, Inc.</td>
+      <td>861</td>
+      <td>DOME Project, Inc.</td>
+      <td>—</td>
+      <td>486 Amsterdam Ave</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10023</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Da Capo Chamber Players, Inc.</td>
+      <td>864</td>
+      <td>Da Capo Chamber Players, Inc.</td>
+      <td>—</td>
+      <td>215 West 90th Street, Ste. 1G</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Drilling Company Theatrical Productions</td>
+      <td>939</td>
+      <td>Drilling Company Theatrical Productions</td>
+      <td>—</td>
+      <td>107 West 82nd Street, Ste. 1A</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Freestyle Repertory Theatre</td>
+      <td>1089</td>
+      <td>Freestyle Repertory Theatre</td>
+      <td>—</td>
+      <td>120 West 86th Street, Apt. 1A</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Goddard Riverside Community Center</td>
+      <td>1136</td>
+      <td>Goddard Riverside Community Center</td>
+      <td>—</td>
+      <td>593 Columbus Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Great Small Works, Inc.</td>
+      <td>1150</td>
+      <td>Great Small Works, Inc.</td>
+      <td>—</td>
+      <td>315 West 86th Street, Apt. 4E</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Hotel Savant Theatre Company, Inc.</td>
+      <td>1236</td>
+      <td>Hotel Savant Theatre Company, Inc.</td>
+      <td>—</td>
+      <td>2350 Broadway, #1207</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>JLSC Educational Tour Bus, Inc.</td>
+      <td>1320</td>
+      <td>JLSC Educational Tour Bus, Inc.</td>
+      <td>—</td>
+      <td>83 Riverside Drive</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Melting Pot Theatre, Inc.</td>
+      <td>1561</td>
+      <td>Melting Pot Theatre, Inc.</td>
+      <td>—</td>
+      <td>2444 Broadway, Suite 231</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Mendelssohn Glee Club</td>
+      <td>1563</td>
+      <td>Mendelssohn Glee Club</td>
+      <td>—</td>
+      <td>393 West End Avenue, Apt. 8C</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Music in the Center</td>
+      <td>1631</td>
+      <td>Music in the Center</td>
+      <td>—</td>
+      <td>2350 Broadway, Ste. 203</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Musicals Tonight! Inc.</td>
+      <td>1639</td>
+      <td>Musicals Tonight! Inc.</td>
+      <td>—</td>
+      <td>150 West 79th Street, Ste. 9A</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>New York Dance & Arts Innovations, Inc.</td>
+      <td>1746</td>
+      <td>New York Dance & Arts Innovations, Inc.</td>
+      <td>—</td>
+      <td>127 West 78th Street, #4</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Noche Flamenca, Inc.</td>
+      <td>1790</td>
+      <td>Noche Flamenca, Inc.</td>
+      <td>—</td>
+      <td>168 W. 86th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Silent Cinema Presentations, Inc.</td>
+      <td>2131</td>
+      <td>Silent Cinema Presentations, Inc.</td>
+      <td>—</td>
+      <td>176 West 87th Street #1D</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Speculum Musicae, Inc.</td>
+      <td>2182</td>
+      <td>Speculum Musicae, Inc.</td>
+      <td>—</td>
+      <td>255 West 88th St., Apt. 10C</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Strange Sun Theater, Inc.</td>
+      <td>2224</td>
+      <td>Strange Sun Theater, Inc.</td>
+      <td>—</td>
+      <td>65 west 90th street</td>
+      <td>New York, NY 10024</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Writopia Lab, Inc.</td>
+      <td>2478</td>
+      <td>Writopia Lab, Inc.</td>
+      <td>—</td>
+      <td>155 West 81 St. Suite A</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10024</td>
+      <td>Manhattan</td>
+    </tr>
+  </tbody>
+</table>
+</body></html>
