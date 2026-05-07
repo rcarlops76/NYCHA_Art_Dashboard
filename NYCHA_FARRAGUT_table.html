@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+  body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+         background:#0d1b2a;color:#e8d5b0;margin:0;padding:16px;}
+  h2   {color:white;font-size:15px;margin-bottom:4px;}
+  p    {color:#c9a96e;font-size:12px;font-family:monospace;margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th   {background:#1e2f45;color:#c9a96e;padding:8px 10px;
+         text-align:left;border-bottom:2px solid #c9a96e;}
+  td   {padding:7px 10px;border-bottom:1px solid #1e2f45;color:#e8d5b0;}
+  tr:hover td {background:#1e2f45;}
+  .count {color:#e74c3c;font-weight:bold;}
+</style></head><body>
+<h2>Arts Organizations within 0.5-mile radius</h2>
+<p>NYCHA: FARRAGUT &nbsp;|&nbsp; Borough: BROOKLYN
+   &nbsp;|&nbsp; Total found:
+   <span class="count">20</span></p>
+<table class="dataframe arts-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>org_name</th>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>STREET_NUM</th>
+      <th>STREET_NAME</th>
+      <th>CITY</th>
+      <th>STATE</th>
+      <th>ZIP</th>
+      <th>BOROUGH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>New York Foundation for the Arts (NYFA)</td>
+      <td>117</td>
+      <td>New York Foundation for the Arts (NYFA)</td>
+      <td>20</td>
+      <td>Jay St</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>A Blade of Grass Fund</td>
+      <td>245</td>
+      <td>A Blade of Grass Fund</td>
+      <td>—</td>
+      <td>81 Prospect Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AFC New York, Inc.</td>
+      <td>253</td>
+      <td>AFC New York, Inc.</td>
+      <td>—</td>
+      <td>20 Jay Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>American Documentary</td>
+      <td>320</td>
+      <td>American Documentary</td>
+      <td>—</td>
+      <td>20 Jay Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Art Creates Us, Inc.</td>
+      <td>382</td>
+      <td>Art Creates Us, Inc.</td>
+      <td>—</td>
+      <td>247 Water Street, Suite 403</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Art in General, Inc.</td>
+      <td>400</td>
+      <td>Art in General, Inc.</td>
+      <td>—</td>
+      <td>20 Jay Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Artists in Residence, Inc.</td>
+      <td>421</td>
+      <td>Artists in Residence, Inc.</td>
+      <td>—</td>
+      <td>155 Plymouth Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Brooklyn Arts Council, Inc.</td>
+      <td>596</td>
+      <td>Brooklyn Arts Council, Inc.</td>
+      <td>—</td>
+      <td>20 Jay Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Brooklyn Institute for Social Research, Inc.</td>
+      <td>613</td>
+      <td>Brooklyn Institute for Social Research, Inc.</td>
+      <td>—</td>
+      <td>68 Jay Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Brooklyn Philharmonic Symphony Orchestra, Inc.</td>
+      <td>617</td>
+      <td>Brooklyn Philharmonic Symphony Orchestra, Inc.</td>
+      <td>—</td>
+      <td>20 Jay Street, Suite M16</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Cave Canem Foundation, Inc.</td>
+      <td>673</td>
+      <td>Cave Canem Foundation, Inc.</td>
+      <td>—</td>
+      <td>20 Jay Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>DREAMMAKER DREAMDOER DREAMSUPPORTER</td>
+      <td>862</td>
+      <td>DREAMMAKER DREAMDOER DREAMSUPPORTER</td>
+      <td>—</td>
+      <td>100 Jay Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>DUMBO District Management Association, Inc.</td>
+      <td>863</td>
+      <td>DUMBO District Management Association, Inc.</td>
+      <td>—</td>
+      <td>20 Jay Street #510</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Independent Feature Project, Inc.</td>
+      <td>1274</td>
+      <td>Independent Feature Project, Inc.</td>
+      <td>—</td>
+      <td>68 Jay Street, Ste. 425</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Marquis Studios, Ltd.</td>
+      <td>1546</td>
+      <td>Marquis Studios, Ltd.</td>
+      <td>—</td>
+      <td>20 Jay Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Moving Mountains Inc.</td>
+      <td>1602</td>
+      <td>Moving Mountains Inc.</td>
+      <td>—</td>
+      <td>195 Plymouth Street, Suite</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Public Policy Lab</td>
+      <td>1955</td>
+      <td>Public Policy Lab</td>
+      <td>—</td>
+      <td>20 Jay St, Suite 910</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Radio Diaries, Inc.</td>
+      <td>1992</td>
+      <td>Radio Diaries, Inc.</td>
+      <td>—</td>
+      <td>20 Jay Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>World Savvy, Inc.</td>
+      <td>2472</td>
+      <td>World Savvy, Inc.</td>
+      <td>—</td>
+      <td>68 Jay Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>n+1 Foundation</td>
+      <td>2520</td>
+      <td>n+1 Foundation</td>
+      <td>—</td>
+      <td>68 Jay Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11201</td>
+      <td>Brooklyn</td>
+    </tr>
+  </tbody>
+</table>
+</body></html>
