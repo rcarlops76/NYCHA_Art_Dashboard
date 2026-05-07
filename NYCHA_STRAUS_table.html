@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+  body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+         background:#0d1b2a;color:#e8d5b0;margin:0;padding:16px;}
+  h2   {color:white;font-size:15px;margin-bottom:4px;}
+  p    {color:#c9a96e;font-size:12px;font-family:monospace;margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th   {background:#1e2f45;color:#c9a96e;padding:8px 10px;
+         text-align:left;border-bottom:2px solid #c9a96e;}
+  td   {padding:7px 10px;border-bottom:1px solid #1e2f45;color:#e8d5b0;}
+  tr:hover td {background:#1e2f45;}
+  .count {color:#e74c3c;font-weight:bold;}
+</style></head><body>
+<h2>Arts Organizations within 0.5-mile radius</h2>
+<p>NYCHA: STRAUS &nbsp;|&nbsp; Borough: MANHATTAN
+   &nbsp;|&nbsp; Total found:
+   <span class="count">18</span></p>
+<table class="dataframe arts-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>org_name</th>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>STREET_NUM</th>
+      <th>STREET_NAME</th>
+      <th>CITY</th>
+      <th>STATE</th>
+      <th>ZIP</th>
+      <th>BOROUGH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Repertorio Español</td>
+      <td>87</td>
+      <td>Repertorio Español</td>
+      <td>138</td>
+      <td>E 27th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10016</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Baruch Performing Arts Center</td>
+      <td>89</td>
+      <td>Baruch Performing Arts Center</td>
+      <td>55</td>
+      <td>Lexington Ave</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10010</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>School of Visual Arts (SVA)</td>
+      <td>91</td>
+      <td>School of Visual Arts (SVA)</td>
+      <td>209</td>
+      <td>E 23rd St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10010</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Grand Central Academy of Art</td>
+      <td>110</td>
+      <td>Grand Central Academy of Art</td>
+      <td>60</td>
+      <td>Lexington Ave</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10010</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>SVA Library</td>
+      <td>139</td>
+      <td>SVA Library</td>
+      <td>214</td>
+      <td>E 21st St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10010</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Association for Cultural Equity, Inc.</td>
+      <td>454</td>
+      <td>Association for Cultural Equity, Inc.</td>
+      <td>—</td>
+      <td>425 E 25th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10010</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Children's Aid Society</td>
+      <td>721</td>
+      <td>Children's Aid Society</td>
+      <td>—</td>
+      <td>105 East 22nd Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10010</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Cultural Center for Soviet Refugees, Inc.</td>
+      <td>844</td>
+      <td>Cultural Center for Soviet Refugees, Inc.</td>
+      <td>—</td>
+      <td>139 East 33rd Street, Apt. 9M</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10016</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Diocese of the Armenian Church of America (Eastern)</td>
+      <td>909</td>
+      <td>Diocese of the Armenian Church of America (Eastern)</td>
+      <td>—</td>
+      <td>630 Second Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10016</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Either/Or, Inc.</td>
+      <td>967</td>
+      <td>Either/Or, Inc.</td>
+      <td>—</td>
+      <td>200 E 32ND ST APT 16D</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10016</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Festival of North American Orchestras, Inc.</td>
+      <td>1037</td>
+      <td>Festival of North American Orchestras, Inc.</td>
+      <td>—</td>
+      <td>470 Park Avenue South</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10016</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Latino International Theater Festival of New York, Inc.</td>
+      <td>1426</td>
+      <td>Latino International Theater Festival of New York, Inc.</td>
+      <td>—</td>
+      <td>142 East 27th Street, Ste. 1A</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10016</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Muslim American Leadership Alliance</td>
+      <td>1641</td>
+      <td>Muslim American Leadership Alliance</td>
+      <td>—</td>
+      <td>79 Madison Ave</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10016</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>New American Cinema Group, Inc.</td>
+      <td>1693</td>
+      <td>New American Cinema Group, Inc.</td>
+      <td>—</td>
+      <td>475 Park Avenue South</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10016</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>New York Theatre Experience, Inc.</td>
+      <td>1775</td>
+      <td>New York Theatre Experience, Inc.</td>
+      <td>—</td>
+      <td>155 E. 31st Street   #10B</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10016</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Spanish Theatre Repertory Company, Ltd.</td>
+      <td>2179</td>
+      <td>Spanish Theatre Repertory Company, Ltd.</td>
+      <td>—</td>
+      <td>138 East 27th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10016</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Theatre-Studio, Inc.</td>
+      <td>2296</td>
+      <td>Theatre-Studio, Inc.</td>
+      <td>—</td>
+      <td>123 East 24th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10010</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Visible Theatre, Inc.</td>
+      <td>2389</td>
+      <td>Visible Theatre, Inc.</td>
+      <td>—</td>
+      <td>201 East 28th Street, #3E</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10016</td>
+      <td>Manhattan</td>
+    </tr>
+  </tbody>
+</table>
+</body></html>
