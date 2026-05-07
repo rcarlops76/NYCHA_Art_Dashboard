@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+  body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+         background:#0d1b2a;color:#e8d5b0;margin:0;padding:16px;}
+  h2   {color:white;font-size:15px;margin-bottom:4px;}
+  p    {color:#c9a96e;font-size:12px;font-family:monospace;margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th   {background:#1e2f45;color:#c9a96e;padding:8px 10px;
+         text-align:left;border-bottom:2px solid #c9a96e;}
+  td   {padding:7px 10px;border-bottom:1px solid #1e2f45;color:#e8d5b0;}
+  tr:hover td {background:#1e2f45;}
+  .count {color:#e74c3c;font-weight:bold;}
+</style></head><body>
+<h2>Arts Organizations within 0.5-mile radius</h2>
+<p>NYCHA: LOWER EAST SIDE II &nbsp;|&nbsp; Borough: MANHATTAN
+   &nbsp;|&nbsp; Total found:
+   <span class="count">27</span></p>
+<table class="dataframe arts-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>org_name</th>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>STREET_NUM</th>
+      <th>STREET_NAME</th>
+      <th>CITY</th>
+      <th>STATE</th>
+      <th>ZIP</th>
+      <th>BOROUGH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Participant Inc.</td>
+      <td>58</td>
+      <td>Participant Inc.</td>
+      <td>253</td>
+      <td>E Houston St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Kai Matsumiya Gallery</td>
+      <td>63</td>
+      <td>Kai Matsumiya Gallery</td>
+      <td>172</td>
+      <td>Norfolk St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>A Gathering of the Tribes</td>
+      <td>246</td>
+      <td>A Gathering of the Tribes</td>
+      <td>—</td>
+      <td>285 East 3rd Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Angel Orensanz Foundation, Inc</td>
+      <td>353</td>
+      <td>Angel Orensanz Foundation, Inc</td>
+      <td>—</td>
+      <td>172 Norfolk Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Art Loisaida Foundation</td>
+      <td>389</td>
+      <td>Art Loisaida Foundation</td>
+      <td>—</td>
+      <td>608 E.9th St.</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Audience, Inc.</td>
+      <td>467</td>
+      <td>Audience, Inc.</td>
+      <td>—</td>
+      <td>39 Avenue A</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Culture Push, Inc.</td>
+      <td>849</td>
+      <td>Culture Push, Inc.</td>
+      <td>—</td>
+      <td>241 E. 7th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Dansology, Inc.</td>
+      <td>892</td>
+      <td>Dansology, Inc.</td>
+      <td>—</td>
+      <td>515 East 6th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Direct Arts, Inc.</td>
+      <td>910</td>
+      <td>Direct Arts, Inc.</td>
+      <td>—</td>
+      <td>647 East 11th Street, Apt. 2</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Kathak Ensemble & Friends Caravan, Inc.</td>
+      <td>1367</td>
+      <td>Kathak Ensemble & Friends Caravan, Inc.</td>
+      <td>—</td>
+      <td>141 East 3rd Street, Apt. 12-H</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Kenkeleba House, New York</td>
+      <td>1375</td>
+      <td>Kenkeleba House, New York</td>
+      <td>—</td>
+      <td>214 East Second Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Living Theatre, Inc.</td>
+      <td>1474</td>
+      <td>Living Theatre, Inc.</td>
+      <td>—</td>
+      <td>21 Clinton Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Lower East Side Community Music Workshop, Inc.</td>
+      <td>1497</td>
+      <td>Lower East Side Community Music Workshop, Inc.</td>
+      <td>—</td>
+      <td>95 Avenue B, 1st floor</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Lower East Side Girls Club</td>
+      <td>1500</td>
+      <td>Lower East Side Girls Club</td>
+      <td>—</td>
+      <td>101 Avenue D</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Moving For Life, Inc.</td>
+      <td>1601</td>
+      <td>Moving For Life, Inc.</td>
+      <td>—</td>
+      <td>55 Ave C, South Storefront</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>NY de Volunteer, Inc.</td>
+      <td>1652</td>
+      <td>NY de Volunteer, Inc.</td>
+      <td>—</td>
+      <td>209 E. 2nd St.</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Overfoot, Inc.</td>
+      <td>1847</td>
+      <td>Overfoot, Inc.</td>
+      <td>—</td>
+      <td>234 East 4th Street, Apt. 16</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>PS, The Short Film Exhibition Inc.</td>
+      <td>1859</td>
+      <td>PS, The Short Film Exhibition Inc.</td>
+      <td>—</td>
+      <td>166 Norfolk Street #3C</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Parsifal's Productions, Inc.</td>
+      <td>1876</td>
+      <td>Parsifal's Productions, Inc.</td>
+      <td>—</td>
+      <td>220 East 4th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Participant, Inc.</td>
+      <td>1879</td>
+      <td>Participant, Inc.</td>
+      <td>—</td>
+      <td>253 East Houston Street, Ground Floor</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Present Theatre Company</td>
+      <td>1937</td>
+      <td>Present Theatre Company</td>
+      <td>—</td>
+      <td>518 East 6th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Slideluck Potshow</td>
+      <td>2142</td>
+      <td>Slideluck Potshow</td>
+      <td>—</td>
+      <td>197 East 4th Street, Apt. 2</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Synapse Productions</td>
+      <td>2245</td>
+      <td>Synapse Productions</td>
+      <td>—</td>
+      <td>220 East 4th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Tamar Rogoff Performance Projects, Inc.</td>
+      <td>2259</td>
+      <td>Tamar Rogoff Performance Projects, Inc.</td>
+      <td>—</td>
+      <td>170 Avenue C</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Temporary Distortion Theater Corp.</td>
+      <td>2269</td>
+      <td>Temporary Distortion Theater Corp.</td>
+      <td>—</td>
+      <td>332 East 4th Street, #44</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>TheatreMoves, Inc.</td>
+      <td>2297</td>
+      <td>TheatreMoves, Inc.</td>
+      <td>—</td>
+      <td>275 East 7th Street #4</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Wild Project Productions, Inc.</td>
+      <td>2442</td>
+      <td>Wild Project Productions, Inc.</td>
+      <td>—</td>
+      <td>195 E. 3rd St.</td>
+      <td>New York City</td>
+      <td>NY</td>
+      <td>10009</td>
+      <td>Manhattan</td>
+    </tr>
+  </tbody>
+</table>
+</body></html>
