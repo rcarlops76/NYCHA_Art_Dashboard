@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+  body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+         background:#0d1b2a;color:#e8d5b0;margin:0;padding:16px;}
+  h2   {color:white;font-size:15px;margin-bottom:4px;}
+  p    {color:#c9a96e;font-size:12px;font-family:monospace;margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th   {background:#1e2f45;color:#c9a96e;padding:8px 10px;
+         text-align:left;border-bottom:2px solid #c9a96e;}
+  td   {padding:7px 10px;border-bottom:1px solid #1e2f45;color:#e8d5b0;}
+  tr:hover td {background:#1e2f45;}
+  .count {color:#e74c3c;font-weight:bold;}
+</style></head><body>
+<h2>Arts Organizations within 0.5-mile radius</h2>
+<p>NYCHA: SAINT NICHOLAS &nbsp;|&nbsp; Borough: MANHATTAN
+   &nbsp;|&nbsp; Total found:
+   <span class="count">30</span></p>
+<table class="dataframe arts-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>org_name</th>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>STREET_NUM</th>
+      <th>STREET_NAME</th>
+      <th>CITY</th>
+      <th>STATE</th>
+      <th>ZIP</th>
+      <th>BOROUGH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Studio Museum in Harlem</td>
+      <td>13</td>
+      <td>Studio Museum in Harlem</td>
+      <td>429</td>
+      <td>W 127th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Gavin Brown's Enterprise</td>
+      <td>64</td>
+      <td>Gavin Brown's Enterprise</td>
+      <td>439</td>
+      <td>W 127th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Apollo Theater</td>
+      <td>80</td>
+      <td>Apollo Theater</td>
+      <td>253</td>
+      <td>W 125th St</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>African Services Committee, Inc.</td>
+      <td>278</td>
+      <td>African Services Committee, Inc.</td>
+      <td>—</td>
+      <td>429 W 127th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>American Performing Arts Collaborative, Inc.</td>
+      <td>337</td>
+      <td>American Performing Arts Collaborative, Inc.</td>
+      <td>—</td>
+      <td>6 Hancock Place</td>
+      <td>New York City</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Apollo Theater Foundation, Inc.</td>
+      <td>364</td>
+      <td>Apollo Theater Foundation, Inc.</td>
+      <td>—</td>
+      <td>253 West 125th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>ArtCrawl Harlem, Inc.</td>
+      <td>407</td>
+      <td>ArtCrawl Harlem, Inc.</td>
+      <td>—</td>
+      <td>363 Malcolm X Blvd</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Arts Horizons LeRoy Neiman Art Center</td>
+      <td>431</td>
+      <td>Arts Horizons LeRoy Neiman Art Center</td>
+      <td>—</td>
+      <td>289 St. Nicholas Ave.</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Behind the Book, Inc.</td>
+      <td>515</td>
+      <td>Behind the Book, Inc.</td>
+      <td>—</td>
+      <td>216 West 135th Street, Ground Floor</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10030</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Bridge, Inc.</td>
+      <td>566</td>
+      <td>Bridge, Inc.</td>
+      <td>—</td>
+      <td>290 Lenox Avenue, 3rd Floor</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>CorbinDances, Inc.</td>
+      <td>820</td>
+      <td>CorbinDances, Inc.</td>
+      <td>—</td>
+      <td>196 West 134th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10030</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Figure Skating in Harlem</td>
+      <td>1041</td>
+      <td>Figure Skating in Harlem</td>
+      <td>—</td>
+      <td>361 West 125th Street, 4th Floor</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Futuro Media Group</td>
+      <td>1112</td>
+      <td>Futuro Media Group</td>
+      <td>—</td>
+      <td>361 W. 125th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Gotham Arts Exchange, Inc.</td>
+      <td>1141</td>
+      <td>Gotham Arts Exchange, Inc.</td>
+      <td>—</td>
+      <td>168 West 123rd Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>HARLEM WEEK, INC.</td>
+      <td>1175</td>
+      <td>HARLEM WEEK, INC.</td>
+      <td>—</td>
+      <td>200A West 136th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10030</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Harlem Artists' Development League Especially For You</td>
+      <td>1184</td>
+      <td>Harlem Artists' Development League Especially For You</td>
+      <td>—</td>
+      <td>229 West 135 Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10030</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Harlem Arts Alliance</td>
+      <td>1185</td>
+      <td>Harlem Arts Alliance</td>
+      <td>—</td>
+      <td>2312 Adam Clayton Powell, Jr. Blvd.</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10030</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Harlem Arts Festival</td>
+      <td>1186</td>
+      <td>Harlem Arts Festival</td>
+      <td>—</td>
+      <td>42 West 130th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10037</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Harlem Educational Activities Fund</td>
+      <td>1189</td>
+      <td>Harlem Educational Activities Fund</td>
+      <td>—</td>
+      <td>2090 Adam Clayton Powell Jr. Blvd., 10th Fl.</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>International Youth Leadership Institute</td>
+      <td>1306</td>
+      <td>International Youth Leadership Institute</td>
+      <td>—</td>
+      <td>127 West 127 Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Mama Foundation for the Arts, Inc.</td>
+      <td>1527</td>
+      <td>Mama Foundation for the Arts, Inc.</td>
+      <td>—</td>
+      <td>149 West 126th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Maysles Institute, Inc.</td>
+      <td>1554</td>
+      <td>Maysles Institute, Inc.</td>
+      <td>—</td>
+      <td>343 Lenox Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Museum of African American Cinema, Inc.</td>
+      <td>1611</td>
+      <td>Museum of African American Cinema, Inc.</td>
+      <td>—</td>
+      <td>163 West 125th Street, Suite 903</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>New Amsterdam Musical Association, Inc.</td>
+      <td>1694</td>
+      <td>New Amsterdam Musical Association, Inc.</td>
+      <td>—</td>
+      <td>107 West 130th Street</td>
+      <td>New York City</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>New Heritage Theatre Group</td>
+      <td>1706</td>
+      <td>New Heritage Theatre Group</td>
+      <td>—</td>
+      <td>229 West 135 Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10030</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Romare Bearden Foundation</td>
+      <td>2051</td>
+      <td>Romare Bearden Foundation</td>
+      <td>—</td>
+      <td>2090 Adam Clayton Powell, Jr. Blvd</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>SYREN Modern Dance, Inc.</td>
+      <td>2079</td>
+      <td>SYREN Modern Dance, Inc.</td>
+      <td>—</td>
+      <td>470 Lenox Avenue, 17H</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10037</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Studio Museum in Harlem</td>
+      <td>2229</td>
+      <td>Studio Museum in Harlem</td>
+      <td>—</td>
+      <td>144 West 125th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Torkomada, Inc.</td>
+      <td>2314</td>
+      <td>Torkomada, Inc.</td>
+      <td>—</td>
+      <td>2070 7th Avenue # 10M</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>West Harlem Development Corporation</td>
+      <td>2425</td>
+      <td>West Harlem Development Corporation</td>
+      <td>—</td>
+      <td>423 W. 127th St., Suite A</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10027</td>
+      <td>Manhattan</td>
+    </tr>
+  </tbody>
+</table>
+</body></html>
