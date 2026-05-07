@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+  body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+         background:#0d1b2a;color:#e8d5b0;margin:0;padding:16px;}
+  h2   {color:white;font-size:15px;margin-bottom:4px;}
+  p    {color:#c9a96e;font-size:12px;font-family:monospace;margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th   {background:#1e2f45;color:#c9a96e;padding:8px 10px;
+         text-align:left;border-bottom:2px solid #c9a96e;}
+  td   {padding:7px 10px;border-bottom:1px solid #1e2f45;color:#e8d5b0;}
+  tr:hover td {background:#1e2f45;}
+  .count {color:#e74c3c;font-weight:bold;}
+</style></head><body>
+<h2>Arts Organizations within 0.5-mile radius</h2>
+<p>NYCHA: CARVER &nbsp;|&nbsp; Borough: MANHATTAN
+   &nbsp;|&nbsp; Total found:
+   <span class="count">19</span></p>
+<table class="dataframe arts-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>org_name</th>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>STREET_NUM</th>
+      <th>STREET_NAME</th>
+      <th>CITY</th>
+      <th>STATE</th>
+      <th>ZIP</th>
+      <th>BOROUGH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Museum of the City of New York</td>
+      <td>9</td>
+      <td>Museum of the City of New York</td>
+      <td>1220</td>
+      <td>5th Ave</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>El Museo del Barrio</td>
+      <td>10</td>
+      <td>El Museo del Barrio</td>
+      <td>1230</td>
+      <td>5th Ave</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Albanian Artists Association</td>
+      <td>290</td>
+      <td>Albanian Artists Association</td>
+      <td>—</td>
+      <td>169 east 101st street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Amigos del Museo del Barrio</td>
+      <td>349</td>
+      <td>Amigos del Museo del Barrio</td>
+      <td>—</td>
+      <td>1230 Fifth Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Arcos Orchestra, Ltd.</td>
+      <td>372</td>
+      <td>Arcos Orchestra, Ltd.</td>
+      <td>—</td>
+      <td>17 E 96th St 14B</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10128</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Art for Change, Inc.</td>
+      <td>399</td>
+      <td>Art for Change, Inc.</td>
+      <td>—</td>
+      <td>1699 Lexington Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Association of Hispanic Arts, Inc.</td>
+      <td>458</td>
+      <td>Association of Hispanic Arts, Inc.</td>
+      <td>—</td>
+      <td>1702 Lexington Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Boys & Girls Harbor, Inc.</td>
+      <td>556</td>
+      <td>Boys & Girls Harbor, Inc.</td>
+      <td>—</td>
+      <td>1 East 104th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Chica Luna Productions</td>
+      <td>719</td>
+      <td>Chica Luna Productions</td>
+      <td>—</td>
+      <td>1690 Lexington Avenue, Second Floor</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>East Harlem Arts & Education Local Development Corporation</td>
+      <td>954</td>
+      <td>East Harlem Arts & Education Local Development Corporation</td>
+      <td>—</td>
+      <td>1 East 104th Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Keep Rising to the Top, Inc.</td>
+      <td>1372</td>
+      <td>Keep Rising to the Top, Inc.</td>
+      <td>—</td>
+      <td>119 East 102 Street, Apt. 5B</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>La Casa de la Herencia Cultural Puertorriquena</td>
+      <td>1411</td>
+      <td>La Casa de la Herencia Cultural Puertorriquena</td>
+      <td>—</td>
+      <td>1230 Fifth Avenue, Ste. 458</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Los Pleneros de la 21, Inc.</td>
+      <td>1491</td>
+      <td>Los Pleneros de la 21, Inc.</td>
+      <td>—</td>
+      <td>1680 Lexington Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Museum of the City of New York</td>
+      <td>1623</td>
+      <td>Museum of the City of New York</td>
+      <td>—</td>
+      <td>1220 Fifth Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Musica De Camara, Inc.</td>
+      <td>1633</td>
+      <td>Musica De Camara, Inc.</td>
+      <td>—</td>
+      <td>1215 Fifth Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>New York Academy of Medicine</td>
+      <td>1721</td>
+      <td>New York Academy of Medicine</td>
+      <td>—</td>
+      <td>1216 Fifth Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>PR Project, Inc.</td>
+      <td>1857</td>
+      <td>PR Project, Inc.</td>
+      <td>—</td>
+      <td>1355 Park Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Puerto Rican Workshop, Inc.</td>
+      <td>1958</td>
+      <td>Puerto Rican Workshop, Inc.</td>
+      <td>—</td>
+      <td>1680 Lexington Avenue</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Salvatones, Inc.</td>
+      <td>2090</td>
+      <td>Salvatones, Inc.</td>
+      <td>—</td>
+      <td>1280 Fifth Avenue, #18C</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>10029</td>
+      <td>Manhattan</td>
+    </tr>
+  </tbody>
+</table>
+</body></html>
