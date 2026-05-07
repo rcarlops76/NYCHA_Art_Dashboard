@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+  body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+         background:#0d1b2a;color:#e8d5b0;margin:0;padding:16px;}
+  h2   {color:white;font-size:15px;margin-bottom:4px;}
+  p    {color:#c9a96e;font-size:12px;font-family:monospace;margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th   {background:#1e2f45;color:#c9a96e;padding:8px 10px;
+         text-align:left;border-bottom:2px solid #c9a96e;}
+  td   {padding:7px 10px;border-bottom:1px solid #1e2f45;color:#e8d5b0;}
+  tr:hover td {background:#1e2f45;}
+  .count {color:#e74c3c;font-weight:bold;}
+</style></head><body>
+<h2>Arts Organizations within 0.5-mile radius</h2>
+<p>NYCHA: ATLANTIC TERMINAL SITE 4B &nbsp;|&nbsp; Borough: BROOKLYN
+   &nbsp;|&nbsp; Total found:
+   <span class="count">48</span></p>
+<table class="dataframe arts-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>org_name</th>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>STREET_NUM</th>
+      <th>STREET_NAME</th>
+      <th>CITY</th>
+      <th>STATE</th>
+      <th>ZIP</th>
+      <th>BOROUGH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>MoCADA - Museum of Contemporary African Diasporan Arts</td>
+      <td>38</td>
+      <td>MoCADA - Museum of Contemporary African Diasporan Arts</td>
+      <td>80</td>
+      <td>Hanson Pl</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Irondale Center</td>
+      <td>90</td>
+      <td>Irondale Center</td>
+      <td>85</td>
+      <td>S Oxford St</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Romare Bearden Foundation</td>
+      <td>129</td>
+      <td>Romare Bearden Foundation</td>
+      <td>80</td>
+      <td>Hanson Pl</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ANDHOW! Theater Company Inc.</td>
+      <td>257</td>
+      <td>ANDHOW! Theater Company Inc.</td>
+      <td>—</td>
+      <td>138 South Oxford Street, Ste. 4C</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>American Opera Projects, Inc.</td>
+      <td>336</td>
+      <td>American Opera Projects, Inc.</td>
+      <td>—</td>
+      <td>138 South Oxford Street #3B</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>American Theatre of Harlem</td>
+      <td>345</td>
+      <td>American Theatre of Harlem</td>
+      <td>—</td>
+      <td>138 South Oxford Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Bang on a Can, Inc.</td>
+      <td>496</td>
+      <td>Bang on a Can, Inc.</td>
+      <td>—</td>
+      <td>80 Hanson Place, Ste. 701</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Brooklyn Studios for Dance</td>
+      <td>622</td>
+      <td>Brooklyn Studios for Dance</td>
+      <td>—</td>
+      <td>210 Lafayette Ave.</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11238</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Caribbean Cultural Theatre, Inc.</td>
+      <td>663</td>
+      <td>Caribbean Cultural Theatre, Inc.</td>
+      <td>—</td>
+      <td>138 South Oxford Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Colt Coeur Theater Company, Inc.</td>
+      <td>787</td>
+      <td>Colt Coeur Theater Company, Inc.</td>
+      <td>—</td>
+      <td>138 South Oxford Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Cool Culture</td>
+      <td>815</td>
+      <td>Cool Culture</td>
+      <td>—</td>
+      <td>80 Hanson Place, Suite 604</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Cooperative Culture Collective</td>
+      <td>818</td>
+      <td>Cooperative Culture Collective</td>
+      <td>—</td>
+      <td>117 S. Oxford Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Creative Outlet Dance Theatre of Brooklyn, Inc.</td>
+      <td>835</td>
+      <td>Creative Outlet Dance Theatre of Brooklyn, Inc.</td>
+      <td>—</td>
+      <td>80 Hanson Place, Suite 303</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Desipina Productions, Inc.</td>
+      <td>900</td>
+      <td>Desipina Productions, Inc.</td>
+      <td>—</td>
+      <td>138 South Oxford Street, Apt. 1C</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Drag Queen Story Hour NYC Ltd.</td>
+      <td>931</td>
+      <td>Drag Queen Story Hour NYC Ltd.</td>
+      <td>—</td>
+      <td>461 Dean Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>EPIC Players Inc</td>
+      <td>947</td>
+      <td>EPIC Players Inc</td>
+      <td>—</td>
+      <td>138 South Oxford Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Elders Share the Arts</td>
+      <td>975</td>
+      <td>Elders Share the Arts</td>
+      <td>—</td>
+      <td>138 South Oxford Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Evidence, Inc.</td>
+      <td>1015</td>
+      <td>Evidence, Inc.</td>
+      <td>—</td>
+      <td>80 Hanson Place, Ste. 605</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>FAN4Kids</td>
+      <td>1023</td>
+      <td>FAN4Kids</td>
+      <td>—</td>
+      <td>538 Clinton Avenue, Unit 1</td>
+      <td>BROOKLYN</td>
+      <td>NY</td>
+      <td>11238</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Fist and Heel Performance Group, Inc.</td>
+      <td>1051</td>
+      <td>Fist and Heel Performance Group, Inc.</td>
+      <td>—</td>
+      <td>476 Dean Street, Ste. 2</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Fort Greene Park Conservancy, Inc.</td>
+      <td>1067</td>
+      <td>Fort Greene Park Conservancy, Inc.</td>
+      <td>—</td>
+      <td>85 South Oxford Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Forty Greene Avenue Cultural Center, Inc.</td>
+      <td>1069</td>
+      <td>Forty Greene Avenue Cultural Center, Inc.</td>
+      <td>—</td>
+      <td>54 Greene Avenue</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11238</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Franklin Furnace Archive, Inc.</td>
+      <td>1085</td>
+      <td>Franklin Furnace Archive, Inc.</td>
+      <td>—</td>
+      <td>80 Hanson Place, Apt. 301</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Gallim Dance Company, Inc.</td>
+      <td>1115</td>
+      <td>Gallim Dance Company, Inc.</td>
+      <td>—</td>
+      <td>520 Clinton Avenue</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11238</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Inquiring Minds Institute</td>
+      <td>1286</td>
+      <td>Inquiring Minds Institute</td>
+      <td>—</td>
+      <td>321 Adelphi Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11205</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>International Film Seminars, Inc.</td>
+      <td>1302</td>
+      <td>International Film Seminars, Inc.</td>
+      <td>—</td>
+      <td>80 Hanson Place</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Irondale Productions, Inc.</td>
+      <td>1310</td>
+      <td>Irondale Productions, Inc.</td>
+      <td>—</td>
+      <td>85 S. Oxford St</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>J'Ouvert City International, Inc.</td>
+      <td>1317</td>
+      <td>J'Ouvert City International, Inc.</td>
+      <td>—</td>
+      <td>13 Atlantic Commons</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Jamel Gaines Creative Outlet Inc</td>
+      <td>1328</td>
+      <td>Jamel Gaines Creative Outlet Inc</td>
+      <td>—</td>
+      <td>80 Hanson Place</td>
+      <td>New York City</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>Kings County Shakespeare Company, Inc.</td>
+      <td>1385</td>
+      <td>Kings County Shakespeare Company, Inc.</td>
+      <td>—</td>
+      <td>138 South Oxford Street, #1C</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>Live Source Inc.</td>
+      <td>1470</td>
+      <td>Live Source Inc.</td>
+      <td>—</td>
+      <td>138 S Oxford St</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>Museum of Contemporary African Diasporian Arts, Inc.</td>
+      <td>1617</td>
+      <td>Museum of Contemporary African Diasporian Arts, Inc.</td>
+      <td>—</td>
+      <td>80 Hanson Place</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>NY Writers Coalition</td>
+      <td>1651</td>
+      <td>NY Writers Coalition</td>
+      <td>—</td>
+      <td>80 Hanson Place, Apt. 603</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>New Art Publications</td>
+      <td>1697</td>
+      <td>New Art Publications</td>
+      <td>—</td>
+      <td>80 Hanson Place, Ste. 703</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>New York Deaf Theatre, Ltd.</td>
+      <td>1748</td>
+      <td>New York Deaf Theatre, Ltd.</td>
+      <td>—</td>
+      <td>138 South Oxford Street, #4F</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>New York Shakespeare Exchange</td>
+      <td>1769</td>
+      <td>New York Shakespeare Exchange</td>
+      <td>—</td>
+      <td>476 Waverly Ave</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11238</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>Nia Theatrical Production Co, Inc.</td>
+      <td>1782</td>
+      <td>Nia Theatrical Production Co, Inc.</td>
+      <td>—</td>
+      <td>138 South Oxford Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>Page Seventy-Three Productions, Inc.</td>
+      <td>1860</td>
+      <td>Page Seventy-Three Productions, Inc.</td>
+      <td>—</td>
+      <td>80 Hanson Place</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>Raga Massive Inc.</td>
+      <td>1995</td>
+      <td>Raga Massive Inc.</td>
+      <td>—</td>
+      <td>698 Dean St</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11238</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>Ripe Time, Inc.</td>
+      <td>2035</td>
+      <td>Ripe Time, Inc.</td>
+      <td>—</td>
+      <td>138 South Oxford Street, Ste. 4D</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>Rising Circle Theater Collective, Inc.</td>
+      <td>2038</td>
+      <td>Rising Circle Theater Collective, Inc.</td>
+      <td>—</td>
+      <td>212 South Oxford Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>Scenarios USA, Inc.</td>
+      <td>2097</td>
+      <td>Scenarios USA, Inc.</td>
+      <td>—</td>
+      <td>80 Hanson Place</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>StoryCorps, Inc.</td>
+      <td>2222</td>
+      <td>StoryCorps, Inc.</td>
+      <td>—</td>
+      <td>80 Hanson Place, 2nd Floor</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>Theatre of the Emerging American Moment, Inc.</td>
+      <td>2294</td>
+      <td>Theatre of the Emerging American Moment, Inc.</td>
+      <td>—</td>
+      <td>138 South Oxford St</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>Trilok Fusion Arts</td>
+      <td>2329</td>
+      <td>Trilok Fusion Arts</td>
+      <td>—</td>
+      <td>138 South Oxford Street, 2B</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>UBW, Inc.</td>
+      <td>2341</td>
+      <td>UBW, Inc.</td>
+      <td>—</td>
+      <td>138 South Oxford Street, Apt. 4B</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>Volcano Love, Inc.</td>
+      <td>2403</td>
+      <td>Volcano Love, Inc.</td>
+      <td>—</td>
+      <td>524 Bergen Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>viBe Theater Experience, Inc.</td>
+      <td>2525</td>
+      <td>viBe Theater Experience, Inc.</td>
+      <td>—</td>
+      <td>138 South Oxford Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+  </tbody>
+</table>
+</body></html>
