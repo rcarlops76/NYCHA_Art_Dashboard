@@ -1,0 +1,2555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NYCHA Arts Organizations — Proximity Map</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+        background:#0d1b2a; color:white; min-height:100vh; }
+.app { display:flex; flex-direction:column; height:100vh; padding:14px; gap:10px; }
+.title-bar { background:#1e2f45; border-left:5px solid #c9a96e;
+              border-radius:4px; padding:12px 18px; flex-shrink:0; }
+.title-bar h2 { font-size:16px; font-weight:bold; color:white; margin-bottom:3px; }
+.title-bar p  { font-size:11px; color:#c9a96e; font-family:monospace; }
+.controls { display:grid; grid-template-columns:140px 1fr; gap:8px 12px;
+             align-items:center; flex-shrink:0; }
+.controls label { font-size:13px; color:#e8d5b0; font-weight:600;
+                   text-align:right; padding-right:8px; }
+.controls select { width:100%; padding:8px 32px 8px 10px;
+                    background:#1e2f45; color:#e8d5b0;
+                    border:1px solid #2a3f5a; border-radius:4px;
+                    font-size:13px; cursor:pointer; appearance:none;
+                    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c9a96e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+                    background-repeat:no-repeat;
+                    background-position:right 10px center; }
+.controls select:focus { outline:none; border-color:#c9a96e; }
+.btn-row { display:flex; align-items:center; gap:14px; flex-shrink:0; }
+.btn-gen { background:#c9a96e; color:#0d1b2a; border:none; border-radius:4px;
+            padding:10px 26px; font-size:14px; font-weight:bold;
+            cursor:pointer; transition:background 0.18s; }
+.btn-gen:hover { background:#e8c98e; }
+.status { font-size:12px; color:#8fa8c8; font-family:monospace; }
+.panels { display:grid; grid-template-columns:3fr 2fr;
+           gap:10px; flex:1; min-height:0; }
+.panel { border:1px solid #1e2f45; border-radius:6px;
+          overflow:hidden; display:flex; flex-direction:column; }
+.panel-title { background:#1e2f45; padding:7px 12px;
+                font-size:11px; color:#c9a96e; font-family:monospace;
+                flex-shrink:0; }
+.panel iframe { flex:1; border:none; width:100%; height:100%; }
+.panel.hidden { display:none; }
+.placeholder { flex:1; display:flex; align-items:center;
+                justify-content:center; color:#2a3f5a;
+                font-size:13px; font-family:monospace; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="title-bar">
+    <h2>NYCHA / PACT Developments &mdash; Arts Organizations Proximity Map</h2>
+    <p>Select Borough and Project to visualize arts organizations
+       within a 0.5-mile radius</p>
+  </div>
+
+  <div class="controls">
+    <label for="dd_boro">Borough:</label>
+    <select id="dd_boro" onchange="updateProjects()">
+      <option value="BRONX">Bronx</option>
+<option value="BROOKLYN">Brooklyn</option>
+<option value="MANHATTAN">Manhattan</option>
+<option value="QUEENS">Queens</option>
+<option value="STATEN ISLAND">Staten Island</option>
+    </select>
+    <label for="dd_proj">Project:</label>
+    <select id="dd_proj"></select>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn-gen" onclick="generateMap()">
+      &#9783; &nbsp; Generate Map
+    </button>
+    <span class="status" id="status">
+      Select a borough and project, then click Generate Map.
+    </span>
+  </div>
+
+  <div class="panels" id="panels">
+    <div class="panel" id="map_panel">
+      <div class="panel-title" id="map_title">Map</div>
+      <div class="placeholder" id="map_placeholder">
+        Map will appear here
+      </div>
+      <iframe id="map_frame" src="" style="display:none"></iframe>
+    </div>
+    <div class="panel" id="table_panel">
+      <div class="panel-title" id="table_title">Arts Organizations</div>
+      <div class="placeholder" id="table_placeholder">
+        Organization list will appear here
+      </div>
+      <iframe id="table_frame" src="" style="display:none"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+const LOOKUP = {
+  "BRONX": [
+    {
+      "name": "1010 EAST 178TH STREET",
+      "source": "PACT",
+      "map_file": "PACT_1010_EAST_178TH_STREET_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "1162-1176 WASHINGTON AVENUE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_1162-1176_WASHINGTON_AVENUE_map.html",
+      "table_file": "NYCHA_1162-1176_WASHINGTON_AVENUE_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "1471 WATSON AVENUE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_1471_WATSON_AVENUE_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "ADAMS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_ADAMS_map.html",
+      "table_file": "NYCHA_ADAMS_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "BAILEY AVENUE-WEST 193RD STREET",
+      "source": "PACT",
+      "map_file": "PACT_BAILEY_AVENUE-WEST_193RD_STREET_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BAYCHESTER",
+      "source": "PACT",
+      "map_file": "PACT_BAYCHESTER_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BETANCES I",
+      "source": "PACT",
+      "map_file": "PACT_BETANCES_I_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BETANCES II, 13",
+      "source": "PACT",
+      "map_file": "PACT_BETANCES_II,_13_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BETANCES II, 18",
+      "source": "PACT",
+      "map_file": "PACT_BETANCES_II,_18_map.html",
+      "table_file": "PACT_BETANCES_II,_18_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "BETANCES II, 9A",
+      "source": "PACT",
+      "map_file": "PACT_BETANCES_II,_9A_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BETANCES III, 13",
+      "source": "PACT",
+      "map_file": "PACT_BETANCES_III,_13_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BETANCES III, 18",
+      "source": "PACT",
+      "map_file": "PACT_BETANCES_III,_18_map.html",
+      "table_file": "PACT_BETANCES_III,_18_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "BETANCES III, 9A",
+      "source": "PACT",
+      "map_file": "PACT_BETANCES_III,_9A_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BETANCES IV",
+      "source": "PACT",
+      "map_file": "PACT_BETANCES_IV_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BETANCES V",
+      "source": "PACT",
+      "map_file": "PACT_BETANCES_V_map.html",
+      "table_file": "PACT_BETANCES_V_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "BETANCES VI",
+      "source": "PACT",
+      "map_file": "PACT_BETANCES_VI_map.html",
+      "table_file": "PACT_BETANCES_VI_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "BOSTON ROAD PLAZA",
+      "source": "PACT",
+      "map_file": "PACT_BOSTON_ROAD_PLAZA_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BOSTON SECOR",
+      "source": "PACT",
+      "map_file": "PACT_BOSTON_SECOR_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BOYNTON AVENUE REHAB",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BOYNTON_AVENUE_REHAB_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BRONX RIVER",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BRONX_RIVER_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BRONX RIVER ADDITION",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BRONX_RIVER_ADDITION_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BRYANT AVENUE-EAST 174TH STREET",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BRYANT_AVENUE-EAST_174TH_STREET_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BUTLER",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BUTLER_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "CASTLE HILL",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CASTLE_HILL_map.html",
+      "table_file": "NYCHA_CASTLE_HILL_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "CLAREMONT PARKWAY-FRANKLIN AVENUE",
+      "source": "PACT",
+      "map_file": "PACT_CLAREMONT_PARKWAY-FRANKLIN_AVENUE_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "CLAREMONT REHAB (GROUP 2)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CLAREMONT_REHAB_(GROUP_2)_map.html",
+      "table_file": "NYCHA_CLAREMONT_REHAB_(GROUP_2)_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "CLAREMONT REHAB (GROUP 3)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CLAREMONT_REHAB_(GROUP_3)_map.html",
+      "table_file": "NYCHA_CLAREMONT_REHAB_(GROUP_3)_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "CLAREMONT REHAB (GROUP 4)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CLAREMONT_REHAB_(GROUP_4)_map.html",
+      "table_file": "NYCHA_CLAREMONT_REHAB_(GROUP_4)_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "CLAREMONT REHAB (GROUP 5)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CLAREMONT_REHAB_(GROUP_5)_map.html",
+      "table_file": "NYCHA_CLAREMONT_REHAB_(GROUP_5)_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "CLASON POINT GARDENS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CLASON_POINT_GARDENS_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "COLLEGE AVENUE-EAST 165TH STREET",
+      "source": "NYCHA",
+      "map_file": "NYCHA_COLLEGE_AVENUE-EAST_165TH_STREET_map.html",
+      "table_file": "NYCHA_COLLEGE_AVENUE-EAST_165TH_STREET_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "DAVIDSON",
+      "source": "PACT",
+      "map_file": "PACT_DAVIDSON_map.html",
+      "table_file": "PACT_DAVIDSON_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "EAGLE AVENUE-EAST 163RD STREET",
+      "source": "PACT",
+      "map_file": "PACT_EAGLE_AVENUE-EAST_163RD_STREET_map.html",
+      "table_file": "PACT_EAGLE_AVENUE-EAST_163RD_STREET_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "EAST 152ND STREET-COURTLANDT AVENUE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_EAST_152ND_STREET-COURTLANDT_AVENUE_map.html",
+      "table_file": "NYCHA_EAST_152ND_STREET-COURTLANDT_AVENUE_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "EAST 165TH STREET-BRYANT AVENUE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_EAST_165TH_STREET-BRYANT_AVENUE_map.html",
+      "table_file": "NYCHA_EAST_165TH_STREET-BRYANT_AVENUE_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "EAST 173RD STREET-VYSE AVENUE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_EAST_173RD_STREET-VYSE_AVENUE_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "EAST 180TH STREET-MONTEREY AVENUE",
+      "source": "PACT",
+      "map_file": "PACT_EAST_180TH_STREET-MONTEREY_AVENUE_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "EASTCHESTER GARDENS",
+      "source": "PACT",
+      "map_file": "PACT_EASTCHESTER_GARDENS_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "EDENWALD",
+      "source": "PACT",
+      "map_file": "PACT_EDENWALD_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "FHA REPOSSESSED HOUSES (GROUP II)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_II)_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "FHA REPOSSESSED HOUSES (GROUP III)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_III)_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "FHA REPOSSESSED HOUSES (GROUP IV)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_IV)_map.html",
+      "table_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_IV)_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "FOREST",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FOREST_map.html",
+      "table_file": "NYCHA_FOREST_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "FORT INDEPENDENCE STREET-HEATH AVENUE",
+      "source": "PACT",
+      "map_file": "PACT_FORT_INDEPENDENCE_STREET-HEATH_AVENUE_map.html",
+      "table_file": "PACT_FORT_INDEPENDENCE_STREET-HEATH_AVENUE_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "FRANKLIN AVENUE I CONVENTIONAL",
+      "source": "PACT",
+      "map_file": "PACT_FRANKLIN_AVENUE_I_CONVENTIONAL_map.html",
+      "table_file": "PACT_FRANKLIN_AVENUE_I_CONVENTIONAL_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "FRANKLIN AVENUE II CONVENTIONAL",
+      "source": "PACT",
+      "map_file": "PACT_FRANKLIN_AVENUE_II_CONVENTIONAL_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "FRANKLIN AVENUE III CONVENTIONAL",
+      "source": "PACT",
+      "map_file": "PACT_FRANKLIN_AVENUE_III_CONVENTIONAL_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "GLEBE AVENUE-WESTCHESTER AVENUE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_GLEBE_AVENUE-WESTCHESTER_AVENUE_map.html",
+      "table_file": "NYCHA_GLEBE_AVENUE-WESTCHESTER_AVENUE_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "GUN HILL",
+      "source": "NYCHA",
+      "map_file": "NYCHA_GUN_HILL_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "HARRISON AVENUE REHAB (GROUP A)",
+      "source": "PACT",
+      "map_file": "PACT_HARRISON_AVENUE_REHAB_(GROUP_A)_map.html",
+      "table_file": "PACT_HARRISON_AVENUE_REHAB_(GROUP_A)_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "HARRISON AVENUE REHAB (GROUP B)",
+      "source": "PACT",
+      "map_file": "PACT_HARRISON_AVENUE_REHAB_(GROUP_B)_map.html",
+      "table_file": "PACT_HARRISON_AVENUE_REHAB_(GROUP_B)_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "HIGHBRIDGE GARDENS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_HIGHBRIDGE_GARDENS_map.html",
+      "table_file": "NYCHA_HIGHBRIDGE_GARDENS_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "HIGHBRIDGE REHABS (ANDERSON AVENUE)",
+      "source": "PACT",
+      "map_file": "PACT_HIGHBRIDGE_REHABS_(ANDERSON_AVENUE)_map.html",
+      "table_file": "PACT_HIGHBRIDGE_REHABS_(ANDERSON_AVENUE)_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "HIGHBRIDGE REHABS (NELSON AVENUE)",
+      "source": "PACT",
+      "map_file": "PACT_HIGHBRIDGE_REHABS_(NELSON_AVENUE)_map.html",
+      "table_file": "PACT_HIGHBRIDGE_REHABS_(NELSON_AVENUE)_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "HOE AVENUE-EAST 173RD STREET",
+      "source": "NYCHA",
+      "map_file": "NYCHA_HOE_AVENUE-EAST_173RD_STREET_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "HUNTS POINT AVENUE REHAB",
+      "source": "NYCHA",
+      "map_file": "NYCHA_HUNTS_POINT_AVENUE_REHAB_map.html",
+      "table_file": "NYCHA_HUNTS_POINT_AVENUE_REHAB_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "JACKSON",
+      "source": "NYCHA",
+      "map_file": "NYCHA_JACKSON_map.html",
+      "table_file": "NYCHA_JACKSON_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "LONGFELLOW AVENUE REHAB",
+      "source": "NYCHA",
+      "map_file": "NYCHA_LONGFELLOW_AVENUE_REHAB_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "MARBLE HILL",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MARBLE_HILL_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "MCKINLEY",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MCKINLEY_map.html",
+      "table_file": "NYCHA_MCKINLEY_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "MELROSE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MELROSE_map.html",
+      "table_file": "NYCHA_MELROSE_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "MIDDLETOWN PLAZA",
+      "source": "PACT",
+      "map_file": "PACT_MIDDLETOWN_PLAZA_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "MILL BROOK",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MILL_BROOK_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "MILL BROOK EXTENSION",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MILL_BROOK_EXTENSION_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "MITCHEL",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MITCHEL_map.html",
+      "table_file": "NYCHA_MITCHEL_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "MONROE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MONROE_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "MOORE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MOORE_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "MORRIS I",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MORRIS_I_map.html",
+      "table_file": "NYCHA_MORRIS_I_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "MORRIS II",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MORRIS_II_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "MORRISANIA",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MORRISANIA_map.html",
+      "table_file": "NYCHA_MORRISANIA_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "MORRISANIA AIR RIGHTS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MORRISANIA_AIR_RIGHTS_map.html",
+      "table_file": "NYCHA_MORRISANIA_AIR_RIGHTS_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "MOTT HAVEN",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MOTT_HAVEN_map.html",
+      "table_file": "NYCHA_MOTT_HAVEN_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "MURPHY",
+      "source": "PACT",
+      "map_file": "PACT_MURPHY_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "PARKSIDE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_PARKSIDE_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "PATTERSON",
+      "source": "NYCHA",
+      "map_file": "NYCHA_PATTERSON_map.html",
+      "table_file": "NYCHA_PATTERSON_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "PELHAM PARKWAY",
+      "source": "NYCHA",
+      "map_file": "NYCHA_PELHAM_PARKWAY_map.html",
+      "table_file": "NYCHA_PELHAM_PARKWAY_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "RANDALL AVENUE-BALCOM AVENUE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_RANDALL_AVENUE-BALCOM_AVENUE_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "SACK WERN",
+      "source": "PACT",
+      "map_file": "PACT_SACK_WERN_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "SAINT MARY'S PARK",
+      "source": "NYCHA",
+      "map_file": "NYCHA_SAINT_MARY'S_PARK_map.html",
+      "table_file": "NYCHA_SAINT_MARY'S_PARK_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "SEDGWICK",
+      "source": "NYCHA",
+      "map_file": "NYCHA_SEDGWICK_map.html",
+      "table_file": "NYCHA_SEDGWICK_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "SOTOMAYOR HOUSES",
+      "source": "NYCHA",
+      "map_file": "NYCHA_SOTOMAYOR_HOUSES_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "SOUNDVIEW",
+      "source": "NYCHA",
+      "map_file": "NYCHA_SOUNDVIEW_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "SOUTH BRONX AREA (SITE 402)",
+      "source": "PACT",
+      "map_file": "PACT_SOUTH_BRONX_AREA_(SITE_402)_map.html",
+      "table_file": "PACT_SOUTH_BRONX_AREA_(SITE_402)_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "STEBBINS AVENUE-HEWITT PLACE",
+      "source": "PACT",
+      "map_file": "PACT_STEBBINS_AVENUE-HEWITT_PLACE_map.html",
+      "table_file": "PACT_STEBBINS_AVENUE-HEWITT_PLACE_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "TELLER AVENUE-EAST 166TH STREET",
+      "source": "NYCHA",
+      "map_file": "NYCHA_TELLER_AVENUE-EAST_166TH_STREET_map.html",
+      "table_file": "NYCHA_TELLER_AVENUE-EAST_166TH_STREET_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "THROGGS NECK",
+      "source": "NYCHA",
+      "map_file": "NYCHA_THROGGS_NECK_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "THROGGS NECK ADDITION",
+      "source": "NYCHA",
+      "map_file": "NYCHA_THROGGS_NECK_ADDITION_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "TWIN PARKS EAST (SITE 9)",
+      "source": "PACT",
+      "map_file": "PACT_TWIN_PARKS_EAST_(SITE_9)_map.html",
+      "table_file": "PACT_TWIN_PARKS_EAST_(SITE_9)_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "TWIN PARKS WEST (SITES 1 & 2)",
+      "source": "PACT",
+      "map_file": "PACT_TWIN_PARKS_WEST_(SITES_1_&_2)_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "UNION AVENUE-EAST 163RD STREET",
+      "source": "PACT",
+      "map_file": "PACT_UNION_AVENUE-EAST_163RD_STREET_map.html",
+      "table_file": "PACT_UNION_AVENUE-EAST_163RD_STREET_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "UNION AVENUE-EAST 166TH STREET",
+      "source": "PACT",
+      "map_file": "PACT_UNION_AVENUE-EAST_166TH_STREET_map.html",
+      "table_file": "PACT_UNION_AVENUE-EAST_166TH_STREET_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "UNIVERSITY AVENUE REHAB",
+      "source": "PACT",
+      "map_file": "PACT_UNIVERSITY_AVENUE_REHAB_map.html",
+      "table_file": "PACT_UNIVERSITY_AVENUE_REHAB_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "WEBSTER",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WEBSTER_map.html",
+      "table_file": "NYCHA_WEBSTER_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "WEST FARMS ROAD REHAB",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WEST_FARMS_ROAD_REHAB_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "WEST FARMS SQUARE CONVENTIONAL",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WEST_FARMS_SQUARE_CONVENTIONAL_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "WEST TREMONT AVENUE-SEDGWICK AVENUE AREA",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WEST_TREMONT_AVENUE-SEDGWICK_AVENUE_AREA_map.html",
+      "table_file": "NYCHA_WEST_TREMONT_AVENUE-SEDGWICK_AVENUE_AREA_table.html",
+      "arts_count": 2
+    }
+  ],
+  "MANHATTAN": [
+    {
+      "name": "131 SAINT NICHOLAS AVENUE",
+      "source": "PACT",
+      "map_file": "PACT_131_SAINT_NICHOLAS_AVENUE_map.html",
+      "table_file": "PACT_131_SAINT_NICHOLAS_AVENUE_table.html",
+      "arts_count": 16
+    },
+    {
+      "name": "154 WEST 84TH STREET",
+      "source": "NYCHA",
+      "map_file": "NYCHA_154_WEST_84TH_STREET_map.html",
+      "table_file": "NYCHA_154_WEST_84TH_STREET_table.html",
+      "arts_count": 24
+    },
+    {
+      "name": "335 EAST 111TH STREET",
+      "source": "PACT",
+      "map_file": "PACT_335_EAST_111TH_STREET_map.html",
+      "table_file": "PACT_335_EAST_111TH_STREET_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "344 EAST 28TH STREET",
+      "source": "PACT",
+      "map_file": "PACT_344_EAST_28TH_STREET_map.html",
+      "table_file": "PACT_344_EAST_28TH_STREET_table.html",
+      "arts_count": 12
+    },
+    {
+      "name": "45 ALLEN STREET",
+      "source": "NYCHA",
+      "map_file": "NYCHA_45_ALLEN_STREET_map.html",
+      "table_file": "NYCHA_45_ALLEN_STREET_table.html",
+      "arts_count": 42
+    },
+    {
+      "name": "830 AMSTERDAM AVENUE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_830_AMSTERDAM_AVENUE_map.html",
+      "table_file": "NYCHA_830_AMSTERDAM_AVENUE_table.html",
+      "arts_count": 34
+    },
+    {
+      "name": "AMSTERDAM",
+      "source": "NYCHA",
+      "map_file": "NYCHA_AMSTERDAM_map.html",
+      "table_file": "NYCHA_AMSTERDAM_table.html",
+      "arts_count": 43
+    },
+    {
+      "name": "AMSTERDAM ADDITION",
+      "source": "NYCHA",
+      "map_file": "NYCHA_AMSTERDAM_ADDITION_map.html",
+      "table_file": "NYCHA_AMSTERDAM_ADDITION_table.html",
+      "arts_count": 34
+    },
+    {
+      "name": "AUDUBON",
+      "source": "PACT",
+      "map_file": "PACT_AUDUBON_map.html",
+      "table_file": "PACT_AUDUBON_table.html",
+      "arts_count": 13
+    },
+    {
+      "name": "BARUCH",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BARUCH_map.html",
+      "table_file": "NYCHA_BARUCH_table.html",
+      "arts_count": 12
+    },
+    {
+      "name": "BARUCH HOUSES ADDITION",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BARUCH_HOUSES_ADDITION_map.html",
+      "table_file": "NYCHA_BARUCH_HOUSES_ADDITION_table.html",
+      "arts_count": 16
+    },
+    {
+      "name": "BETHUNE GARDENS",
+      "source": "PACT",
+      "map_file": "PACT_BETHUNE_GARDENS_map.html",
+      "table_file": "PACT_BETHUNE_GARDENS_table.html",
+      "arts_count": 14
+    },
+    {
+      "name": "BRACETTI PLAZA",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BRACETTI_PLAZA_map.html",
+      "table_file": "NYCHA_BRACETTI_PLAZA_table.html",
+      "arts_count": 39
+    },
+    {
+      "name": "CAMPOS PLAZA II",
+      "source": "PACT",
+      "map_file": "PACT_CAMPOS_PLAZA_II_map.html",
+      "table_file": "PACT_CAMPOS_PLAZA_II_table.html",
+      "arts_count": 10
+    },
+    {
+      "name": "CARVER",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CARVER_map.html",
+      "table_file": "NYCHA_CARVER_table.html",
+      "arts_count": 19
+    },
+    {
+      "name": "CHELSEA",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CHELSEA_map.html",
+      "table_file": "NYCHA_CHELSEA_table.html",
+      "arts_count": 60
+    },
+    {
+      "name": "CHELSEA ADDITION",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CHELSEA_ADDITION_map.html",
+      "table_file": "NYCHA_CHELSEA_ADDITION_table.html",
+      "arts_count": 54
+    },
+    {
+      "name": "CLINTON",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CLINTON_map.html",
+      "table_file": "NYCHA_CLINTON_table.html",
+      "arts_count": 19
+    },
+    {
+      "name": "CORSI HOUSES",
+      "source": "PACT",
+      "map_file": "PACT_CORSI_HOUSES_map.html",
+      "table_file": "PACT_CORSI_HOUSES_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "DE HOSTOS APARTMENTS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_DE_HOSTOS_APARTMENTS_map.html",
+      "table_file": "NYCHA_DE_HOSTOS_APARTMENTS_table.html",
+      "arts_count": 32
+    },
+    {
+      "name": "DOUGLASS ADDITION",
+      "source": "NYCHA",
+      "map_file": "NYCHA_DOUGLASS_ADDITION_map.html",
+      "table_file": "NYCHA_DOUGLASS_ADDITION_table.html",
+      "arts_count": 31
+    },
+    {
+      "name": "DOUGLASS I",
+      "source": "NYCHA",
+      "map_file": "NYCHA_DOUGLASS_I_map.html",
+      "table_file": "NYCHA_DOUGLASS_I_table.html",
+      "arts_count": 19
+    },
+    {
+      "name": "DOUGLASS II",
+      "source": "NYCHA",
+      "map_file": "NYCHA_DOUGLASS_II_map.html",
+      "table_file": "NYCHA_DOUGLASS_II_table.html",
+      "arts_count": 28
+    },
+    {
+      "name": "DREW-HAMILTON",
+      "source": "NYCHA",
+      "map_file": "NYCHA_DREW-HAMILTON_map.html",
+      "table_file": "NYCHA_DREW-HAMILTON_table.html",
+      "arts_count": 17
+    },
+    {
+      "name": "DYCKMAN",
+      "source": "NYCHA",
+      "map_file": "NYCHA_DYCKMAN_map.html",
+      "table_file": "NYCHA_DYCKMAN_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "EAST RIVER",
+      "source": "NYCHA",
+      "map_file": "NYCHA_EAST_RIVER_map.html",
+      "table_file": "NYCHA_EAST_RIVER_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "ELLIOTT",
+      "source": "NYCHA",
+      "map_file": "NYCHA_ELLIOTT_map.html",
+      "table_file": "NYCHA_ELLIOTT_table.html",
+      "arts_count": 55
+    },
+    {
+      "name": "FIRST HOUSES",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FIRST_HOUSES_map.html",
+      "table_file": "NYCHA_FIRST_HOUSES_table.html",
+      "arts_count": 89
+    },
+    {
+      "name": "FORT WASHINGTON AVENUE REHAB",
+      "source": "PACT",
+      "map_file": "PACT_FORT_WASHINGTON_AVENUE_REHAB_map.html",
+      "table_file": "PACT_FORT_WASHINGTON_AVENUE_REHAB_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "FULTON",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FULTON_map.html",
+      "table_file": "NYCHA_FULTON_table.html",
+      "arts_count": 45
+    },
+    {
+      "name": "GOMPERS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_GOMPERS_map.html",
+      "table_file": "NYCHA_GOMPERS_table.html",
+      "arts_count": 38
+    },
+    {
+      "name": "GRAMPION",
+      "source": "PACT",
+      "map_file": "PACT_GRAMPION_map.html",
+      "table_file": "PACT_GRAMPION_table.html",
+      "arts_count": 25
+    },
+    {
+      "name": "GRANT",
+      "source": "NYCHA",
+      "map_file": "NYCHA_GRANT_map.html",
+      "table_file": "NYCHA_GRANT_table.html",
+      "arts_count": 22
+    },
+    {
+      "name": "HARBORVIEW TERRACE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_HARBORVIEW_TERRACE_map.html",
+      "table_file": "NYCHA_HARBORVIEW_TERRACE_table.html",
+      "arts_count": 23
+    },
+    {
+      "name": "HARLEM RIVER",
+      "source": "PACT",
+      "map_file": "PACT_HARLEM_RIVER_map.html",
+      "table_file": "PACT_HARLEM_RIVER_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "HARLEM RIVER II",
+      "source": "PACT",
+      "map_file": "PACT_HARLEM_RIVER_II_map.html",
+      "table_file": "PACT_HARLEM_RIVER_II_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "HERNANDEZ",
+      "source": "NYCHA",
+      "map_file": "NYCHA_HERNANDEZ_map.html",
+      "table_file": "NYCHA_HERNANDEZ_table.html",
+      "arts_count": 74
+    },
+    {
+      "name": "HOLMES TOWERS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_HOLMES_TOWERS_map.html",
+      "table_file": "NYCHA_HOLMES_TOWERS_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "ISAACS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_ISAACS_map.html",
+      "table_file": "NYCHA_ISAACS_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "JEFFERSON",
+      "source": "NYCHA",
+      "map_file": "NYCHA_JEFFERSON_map.html",
+      "table_file": "NYCHA_JEFFERSON_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "JOHNSON",
+      "source": "NYCHA",
+      "map_file": "NYCHA_JOHNSON_map.html",
+      "table_file": "NYCHA_JOHNSON_table.html",
+      "arts_count": 8
+    },
+    {
+      "name": "KING TOWERS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_KING_TOWERS_map.html",
+      "table_file": "NYCHA_KING_TOWERS_table.html",
+      "arts_count": 14
+    },
+    {
+      "name": "LA GUARDIA",
+      "source": "NYCHA",
+      "map_file": "NYCHA_LA_GUARDIA_map.html",
+      "table_file": "NYCHA_LA_GUARDIA_table.html",
+      "arts_count": 17
+    },
+    {
+      "name": "LA GUARDIA ADDITION",
+      "source": "NYCHA",
+      "map_file": "NYCHA_LA_GUARDIA_ADDITION_map.html",
+      "table_file": "NYCHA_LA_GUARDIA_ADDITION_table.html",
+      "arts_count": 16
+    },
+    {
+      "name": "LEHMAN VILLAGE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_LEHMAN_VILLAGE_map.html",
+      "table_file": "NYCHA_LEHMAN_VILLAGE_table.html",
+      "arts_count": 18
+    },
+    {
+      "name": "LEXINGTON",
+      "source": "NYCHA",
+      "map_file": "NYCHA_LEXINGTON_map.html",
+      "table_file": "NYCHA_LEXINGTON_table.html",
+      "arts_count": 15
+    },
+    {
+      "name": "LINCOLN",
+      "source": "NYCHA",
+      "map_file": "NYCHA_LINCOLN_map.html",
+      "table_file": "NYCHA_LINCOLN_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "LOWER EAST SIDE I INFILL",
+      "source": "NYCHA",
+      "map_file": "NYCHA_LOWER_EAST_SIDE_I_INFILL_map.html",
+      "table_file": "NYCHA_LOWER_EAST_SIDE_I_INFILL_table.html",
+      "arts_count": 63
+    },
+    {
+      "name": "LOWER EAST SIDE II",
+      "source": "NYCHA",
+      "map_file": "NYCHA_LOWER_EAST_SIDE_II_map.html",
+      "table_file": "NYCHA_LOWER_EAST_SIDE_II_table.html",
+      "arts_count": 27
+    },
+    {
+      "name": "LOWER EAST SIDE III",
+      "source": "NYCHA",
+      "map_file": "NYCHA_LOWER_EAST_SIDE_III_map.html",
+      "table_file": "NYCHA_LOWER_EAST_SIDE_III_table.html",
+      "arts_count": 18
+    },
+    {
+      "name": "LOWER EAST SIDE REHAB (GROUP 5)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_LOWER_EAST_SIDE_REHAB_(GROUP_5)_map.html",
+      "table_file": "NYCHA_LOWER_EAST_SIDE_REHAB_(GROUP_5)_table.html",
+      "arts_count": 27
+    },
+    {
+      "name": "MANHATTANVILLE",
+      "source": "PACT",
+      "map_file": "PACT_MANHATTANVILLE_map.html",
+      "table_file": "PACT_MANHATTANVILLE_table.html",
+      "arts_count": 19
+    },
+    {
+      "name": "MANHATTANVILLE REHAB (GROUP 2)",
+      "source": "PACT",
+      "map_file": "PACT_MANHATTANVILLE_REHAB_(GROUP_2)_map.html",
+      "table_file": "PACT_MANHATTANVILLE_REHAB_(GROUP_2)_table.html",
+      "arts_count": 12
+    },
+    {
+      "name": "MANHATTANVILLE REHAB (GROUP 3)",
+      "source": "PACT",
+      "map_file": "PACT_MANHATTANVILLE_REHAB_(GROUP_3)_map.html",
+      "table_file": "PACT_MANHATTANVILLE_REHAB_(GROUP_3)_table.html",
+      "arts_count": 18
+    },
+    {
+      "name": "MARBLE HILL",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MARBLE_HILL_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "MARSHALL PLAZA",
+      "source": "PACT",
+      "map_file": "PACT_MARSHALL_PLAZA_map.html",
+      "table_file": "PACT_MARSHALL_PLAZA_table.html",
+      "arts_count": 15
+    },
+    {
+      "name": "MELTZER TOWER",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MELTZER_TOWER_map.html",
+      "table_file": "NYCHA_MELTZER_TOWER_table.html",
+      "arts_count": 79
+    },
+    {
+      "name": "METRO NORTH PLAZA",
+      "source": "PACT",
+      "map_file": "PACT_METRO_NORTH_PLAZA_map.html",
+      "table_file": "PACT_METRO_NORTH_PLAZA_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "MORRIS PARK SENIOR CITIZENS HOME",
+      "source": "PACT",
+      "map_file": "PACT_MORRIS_PARK_SENIOR_CITIZENS_HOME_map.html",
+      "table_file": "PACT_MORRIS_PARK_SENIOR_CITIZENS_HOME_table.html",
+      "arts_count": 17
+    },
+    {
+      "name": "PARK AVENUE-EAST 122ND, 123RD STREETS",
+      "source": "PACT",
+      "map_file": "PACT_PARK_AVENUE-EAST_122ND,_123RD_STREETS_map.html",
+      "table_file": "PACT_PARK_AVENUE-EAST_122ND,_123RD_STREETS_table.html",
+      "arts_count": 9
+    },
+    {
+      "name": "POLO GROUNDS TOWERS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_POLO_GROUNDS_TOWERS_map.html",
+      "table_file": "NYCHA_POLO_GROUNDS_TOWERS_table.html",
+      "arts_count": 6
+    },
+    {
+      "name": "PUBLIC SCHOOL 139 (CONVERSION)",
+      "source": "PACT",
+      "map_file": "PACT_PUBLIC_SCHOOL_139_(CONVERSION)_map.html",
+      "table_file": "PACT_PUBLIC_SCHOOL_139_(CONVERSION)_table.html",
+      "arts_count": 13
+    },
+    {
+      "name": "RANGEL",
+      "source": "NYCHA",
+      "map_file": "NYCHA_RANGEL_map.html",
+      "table_file": "NYCHA_RANGEL_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "REHAB PROGRAM (DOUGLASS REHABS)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_REHAB_PROGRAM_(DOUGLASS_REHABS)_map.html",
+      "table_file": "NYCHA_REHAB_PROGRAM_(DOUGLASS_REHABS)_table.html",
+      "arts_count": 31
+    },
+    {
+      "name": "REHAB PROGRAM (TAFT REHABS)",
+      "source": "PACT",
+      "map_file": "PACT_REHAB_PROGRAM_(TAFT_REHABS)_map.html",
+      "table_file": "PACT_REHAB_PROGRAM_(TAFT_REHABS)_table.html",
+      "arts_count": 17
+    },
+    {
+      "name": "REHAB PROGRAM (WISE REHAB)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_REHAB_PROGRAM_(WISE_REHAB)_map.html",
+      "table_file": "NYCHA_REHAB_PROGRAM_(WISE_REHAB)_table.html",
+      "arts_count": 17
+    },
+    {
+      "name": "RIIS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_RIIS_map.html",
+      "table_file": "NYCHA_RIIS_table.html",
+      "arts_count": 8
+    },
+    {
+      "name": "RIIS II",
+      "source": "NYCHA",
+      "map_file": "NYCHA_RIIS_II_map.html",
+      "table_file": "NYCHA_RIIS_II_table.html",
+      "arts_count": 10
+    },
+    {
+      "name": "ROBBINS PLAZA",
+      "source": "NYCHA",
+      "map_file": "NYCHA_ROBBINS_PLAZA_map.html",
+      "table_file": "NYCHA_ROBBINS_PLAZA_table.html",
+      "arts_count": 10
+    },
+    {
+      "name": "ROBINSON",
+      "source": "PACT",
+      "map_file": "PACT_ROBINSON_map.html",
+      "table_file": "PACT_ROBINSON_table.html",
+      "arts_count": 8
+    },
+    {
+      "name": "RUTGERS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_RUTGERS_map.html",
+      "table_file": "NYCHA_RUTGERS_table.html",
+      "arts_count": 17
+    },
+    {
+      "name": "SAINT NICHOLAS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_SAINT_NICHOLAS_map.html",
+      "table_file": "NYCHA_SAINT_NICHOLAS_table.html",
+      "arts_count": 30
+    },
+    {
+      "name": "SAMUEL (CITY)",
+      "source": "PACT",
+      "map_file": "PACT_SAMUEL_(CITY)_map.html",
+      "table_file": "PACT_SAMUEL_(CITY)_table.html",
+      "arts_count": 7
+    },
+    {
+      "name": "SAMUEL (MHOP) I",
+      "source": "PACT",
+      "map_file": "PACT_SAMUEL_(MHOP)_I_map.html",
+      "table_file": "PACT_SAMUEL_(MHOP)_I_table.html",
+      "arts_count": 14
+    },
+    {
+      "name": "SAMUEL (MHOP) II",
+      "source": "PACT",
+      "map_file": "PACT_SAMUEL_(MHOP)_II_map.html",
+      "table_file": "PACT_SAMUEL_(MHOP)_II_table.html",
+      "arts_count": 14
+    },
+    {
+      "name": "SAMUEL (MHOP) III",
+      "source": "PACT",
+      "map_file": "PACT_SAMUEL_(MHOP)_III_map.html",
+      "table_file": "PACT_SAMUEL_(MHOP)_III_table.html",
+      "arts_count": 10
+    },
+    {
+      "name": "SEWARD PARK EXTENSION",
+      "source": "NYCHA",
+      "map_file": "NYCHA_SEWARD_PARK_EXTENSION_map.html",
+      "table_file": "NYCHA_SEWARD_PARK_EXTENSION_table.html",
+      "arts_count": 40
+    },
+    {
+      "name": "SMITH",
+      "source": "NYCHA",
+      "map_file": "NYCHA_SMITH_map.html",
+      "table_file": "NYCHA_SMITH_table.html",
+      "arts_count": 15
+    },
+    {
+      "name": "STANTON STREET",
+      "source": "NYCHA",
+      "map_file": "NYCHA_STANTON_STREET_map.html",
+      "table_file": "NYCHA_STANTON_STREET_table.html",
+      "arts_count": 42
+    },
+    {
+      "name": "STRAUS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_STRAUS_map.html",
+      "table_file": "NYCHA_STRAUS_table.html",
+      "arts_count": 18
+    },
+    {
+      "name": "TAFT",
+      "source": "NYCHA",
+      "map_file": "NYCHA_TAFT_map.html",
+      "table_file": "NYCHA_TAFT_table.html",
+      "arts_count": 8
+    },
+    {
+      "name": "THOMAS APARTMENTS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_THOMAS_APARTMENTS_map.html",
+      "table_file": "NYCHA_THOMAS_APARTMENTS_table.html",
+      "arts_count": 26
+    },
+    {
+      "name": "TWO BRIDGES URA (SITE 7)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_TWO_BRIDGES_URA_(SITE_7)_map.html",
+      "table_file": "NYCHA_TWO_BRIDGES_URA_(SITE_7)_table.html",
+      "arts_count": 16
+    },
+    {
+      "name": "UPACA (SITE 5)",
+      "source": "PACT",
+      "map_file": "PACT_UPACA_(SITE_5)_map.html",
+      "table_file": "PACT_UPACA_(SITE_5)_table.html",
+      "arts_count": 10
+    },
+    {
+      "name": "UPACA (SITE 6)",
+      "source": "PACT",
+      "map_file": "PACT_UPACA_(SITE_6)_map.html",
+      "table_file": "PACT_UPACA_(SITE_6)_table.html",
+      "arts_count": 10
+    },
+    {
+      "name": "VLADECK",
+      "source": "NYCHA",
+      "map_file": "NYCHA_VLADECK_map.html",
+      "table_file": "NYCHA_VLADECK_table.html",
+      "arts_count": 17
+    },
+    {
+      "name": "VLADECK II",
+      "source": "NYCHA",
+      "map_file": "NYCHA_VLADECK_II_map.html",
+      "table_file": "NYCHA_VLADECK_II_table.html",
+      "arts_count": 13
+    },
+    {
+      "name": "WAGNER",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WAGNER_map.html",
+      "table_file": "NYCHA_WAGNER_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "WALD",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WALD_map.html",
+      "table_file": "NYCHA_WALD_table.html",
+      "arts_count": 8
+    },
+    {
+      "name": "WASHINGTON",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WASHINGTON_map.html",
+      "table_file": "NYCHA_WASHINGTON_table.html",
+      "arts_count": 9
+    },
+    {
+      "name": "WASHINGTON HEIGHTS REHAB (GROUPS 1&2)",
+      "source": "PACT",
+      "map_file": "PACT_WASHINGTON_HEIGHTS_REHAB_(GROUPS_1&2)_map.html",
+      "table_file": "PACT_WASHINGTON_HEIGHTS_REHAB_(GROUPS_1&2)_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "WASHINGTON HEIGHTS REHAB PHASE III (FORT WASHINGTON)",
+      "source": "PACT",
+      "map_file": "PACT_WASHINGTON_HEIGHTS_REHAB_PHASE_III_(FORT_WASHINGTON)_map.html",
+      "table_file": "PACT_WASHINGTON_HEIGHTS_REHAB_PHASE_III_(FORT_WASHINGTON)_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "WASHINGTON HEIGHTS REHAB PHASE III (HARLEM RIVER)",
+      "source": "PACT",
+      "map_file": "PACT_WASHINGTON_HEIGHTS_REHAB_PHASE_III_(HARLEM_RIVER)_map.html",
+      "table_file": "PACT_WASHINGTON_HEIGHTS_REHAB_PHASE_III_(HARLEM_RIVER)_table.html",
+      "arts_count": 15
+    },
+    {
+      "name": "WASHINGTON HEIGHTS REHAB PHASE IV (C)",
+      "source": "PACT",
+      "map_file": "PACT_WASHINGTON_HEIGHTS_REHAB_PHASE_IV_(C)_map.html",
+      "table_file": "PACT_WASHINGTON_HEIGHTS_REHAB_PHASE_IV_(C)_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "WASHINGTON HEIGHTS REHAB PHASE IV (D)",
+      "source": "PACT",
+      "map_file": "PACT_WASHINGTON_HEIGHTS_REHAB_PHASE_IV_(D)_map.html",
+      "table_file": "PACT_WASHINGTON_HEIGHTS_REHAB_PHASE_IV_(D)_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "WHITE",
+      "source": "PACT",
+      "map_file": "PACT_WHITE_map.html",
+      "table_file": "PACT_WHITE_table.html",
+      "arts_count": 9
+    },
+    {
+      "name": "WILSON",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WILSON_map.html",
+      "table_file": "NYCHA_WILSON_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "WISE TOWERS",
+      "source": "PACT",
+      "map_file": "PACT_WISE_TOWERS_map.html",
+      "table_file": "PACT_WISE_TOWERS_table.html",
+      "arts_count": 31
+    },
+    {
+      "name": "WSUR (BROWNSTONES)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WSUR_(BROWNSTONES)_map.html",
+      "table_file": "NYCHA_WSUR_(BROWNSTONES)_table.html",
+      "arts_count": 22
+    },
+    {
+      "name": "WSUR (SITE A) 120 WEST 94TH STREET",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WSUR_(SITE_A)_120_WEST_94TH_STREET_map.html",
+      "table_file": "NYCHA_WSUR_(SITE_A)_120_WEST_94TH_STREET_table.html",
+      "arts_count": 30
+    },
+    {
+      "name": "WSUR (SITE B) 74 WEST 92ND STREET",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WSUR_(SITE_B)_74_WEST_92ND_STREET_map.html",
+      "table_file": "NYCHA_WSUR_(SITE_B)_74_WEST_92ND_STREET_table.html",
+      "arts_count": 24
+    },
+    {
+      "name": "WSUR (SITE C) 589 AMSTERDAM AVENUE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WSUR_(SITE_C)_589_AMSTERDAM_AVENUE_map.html",
+      "table_file": "NYCHA_WSUR_(SITE_C)_589_AMSTERDAM_AVENUE_table.html",
+      "arts_count": 32
+    }
+  ],
+  "BROOKLYN": [
+    {
+      "name": "104-14 TAPSCOTT STREET",
+      "source": "PACT",
+      "map_file": "PACT_104-14_TAPSCOTT_STREET_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "303 VERNON AVENUE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_303_VERNON_AVENUE_map.html",
+      "table_file": "NYCHA_303_VERNON_AVENUE_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "572 WARREN STREET",
+      "source": "PACT",
+      "map_file": "PACT_572_WARREN_STREET_map.html",
+      "table_file": "PACT_572_WARREN_STREET_table.html",
+      "arts_count": 20
+    },
+    {
+      "name": "ALBANY",
+      "source": "NYCHA",
+      "map_file": "NYCHA_ALBANY_map.html",
+      "table_file": "NYCHA_ALBANY_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "ALBANY II",
+      "source": "NYCHA",
+      "map_file": "NYCHA_ALBANY_II_map.html",
+      "table_file": "NYCHA_ALBANY_II_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "ARMSTRONG I",
+      "source": "PACT",
+      "map_file": "PACT_ARMSTRONG_I_map.html",
+      "table_file": "PACT_ARMSTRONG_I_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "ARMSTRONG II",
+      "source": "PACT",
+      "map_file": "PACT_ARMSTRONG_II_map.html",
+      "table_file": "PACT_ARMSTRONG_II_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "ATLANTIC TERMINAL SITE 4B",
+      "source": "NYCHA",
+      "map_file": "NYCHA_ATLANTIC_TERMINAL_SITE_4B_map.html",
+      "table_file": "NYCHA_ATLANTIC_TERMINAL_SITE_4B_table.html",
+      "arts_count": 48
+    },
+    {
+      "name": "BAY VIEW",
+      "source": "PACT",
+      "map_file": "PACT_BAY_VIEW_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BEDFORD-STUYVESANT REHAB",
+      "source": "PACT",
+      "map_file": "PACT_BEDFORD-STUYVESANT_REHAB_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BELMONT-SUTTER AREA",
+      "source": "PACT",
+      "map_file": "PACT_BELMONT-SUTTER_AREA_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BERRY STREET-SOUTH 9TH STREET",
+      "source": "PACT",
+      "map_file": "PACT_BERRY_STREET-SOUTH_9TH_STREET_map.html",
+      "table_file": "PACT_BERRY_STREET-SOUTH_9TH_STREET_table.html",
+      "arts_count": 7
+    },
+    {
+      "name": "BORINQUEN PLAZA I",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BORINQUEN_PLAZA_I_map.html",
+      "table_file": "NYCHA_BORINQUEN_PLAZA_I_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "BORINQUEN PLAZA II",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BORINQUEN_PLAZA_II_map.html",
+      "table_file": "NYCHA_BORINQUEN_PLAZA_II_table.html",
+      "arts_count": 7
+    },
+    {
+      "name": "BOULEVARD",
+      "source": "PACT",
+      "map_file": "PACT_BOULEVARD_map.html",
+      "table_file": "PACT_BOULEVARD_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "BREUKELEN",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BREUKELEN_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BREVOORT",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BREVOORT_map.html",
+      "table_file": "NYCHA_BREVOORT_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "BROWN",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BROWN_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BROWNSVILLE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BROWNSVILLE_map.html",
+      "table_file": "NYCHA_BROWNSVILLE_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "BUSHWICK",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BUSHWICK_map.html",
+      "table_file": "NYCHA_BUSHWICK_table.html",
+      "arts_count": 7
+    },
+    {
+      "name": "BUSHWICK II (GROUPS A & C)",
+      "source": "PACT",
+      "map_file": "PACT_BUSHWICK_II_(GROUPS_A_&_C)_map.html",
+      "table_file": "PACT_BUSHWICK_II_(GROUPS_A_&_C)_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "BUSHWICK II (GROUPS B & D)",
+      "source": "PACT",
+      "map_file": "PACT_BUSHWICK_II_(GROUPS_B_&_D)_map.html",
+      "table_file": "PACT_BUSHWICK_II_(GROUPS_B_&_D)_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "BUSHWICK II CDA (GROUP E)",
+      "source": "PACT",
+      "map_file": "PACT_BUSHWICK_II_CDA_(GROUP_E)_map.html",
+      "table_file": "PACT_BUSHWICK_II_CDA_(GROUP_E)_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "CAREY GARDENS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CAREY_GARDENS_map.html",
+      "table_file": "NYCHA_CAREY_GARDENS_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "CONEY ISLAND",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CONEY_ISLAND_map.html",
+      "table_file": "NYCHA_CONEY_ISLAND_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "CONEY ISLAND I (SITE 1B)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CONEY_ISLAND_I_(SITE_1B)_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "CONEY ISLAND I (SITE 8)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CONEY_ISLAND_I_(SITE_8)_map.html",
+      "table_file": "NYCHA_CONEY_ISLAND_I_(SITE_8)_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "CONEY ISLAND I (SITES 4 & 5)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CONEY_ISLAND_I_(SITES_4_&_5)_map.html",
+      "table_file": "NYCHA_CONEY_ISLAND_I_(SITES_4_&_5)_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "COOPER PARK",
+      "source": "NYCHA",
+      "map_file": "NYCHA_COOPER_PARK_map.html",
+      "table_file": "NYCHA_COOPER_PARK_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "CROWN HEIGHTS",
+      "source": "PACT",
+      "map_file": "PACT_CROWN_HEIGHTS_map.html",
+      "table_file": "PACT_CROWN_HEIGHTS_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "CYPRESS HILLS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CYPRESS_HILLS_map.html",
+      "table_file": "NYCHA_CYPRESS_HILLS_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "EAST NEW YORK CITY LINE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_EAST_NEW_YORK_CITY_LINE_map.html",
+      "table_file": "NYCHA_EAST_NEW_YORK_CITY_LINE_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "FARRAGUT",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FARRAGUT_map.html",
+      "table_file": "NYCHA_FARRAGUT_table.html",
+      "arts_count": 20
+    },
+    {
+      "name": "FENIMORE-LEFFERTS",
+      "source": "PACT",
+      "map_file": "PACT_FENIMORE-LEFFERTS_map.html",
+      "table_file": "PACT_FENIMORE-LEFFERTS_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "FHA REPOSSESSED HOUSES (GROUP IX)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_IX)_map.html",
+      "table_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_IX)_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "FHA REPOSSESSED HOUSES (GROUP V)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_V)_map.html",
+      "table_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_V)_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "FIORENTINO PLAZA",
+      "source": "PACT",
+      "map_file": "PACT_FIORENTINO_PLAZA_map.html",
+      "table_file": "PACT_FIORENTINO_PLAZA_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "GARVEY (GROUP A)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_GARVEY_(GROUP_A)_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "GLENMORE PLAZA",
+      "source": "NYCHA",
+      "map_file": "NYCHA_GLENMORE_PLAZA_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "GLENWOOD",
+      "source": "NYCHA",
+      "map_file": "NYCHA_GLENWOOD_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "GOWANUS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_GOWANUS_map.html",
+      "table_file": "NYCHA_GOWANUS_table.html",
+      "arts_count": 13
+    },
+    {
+      "name": "GRAVESEND",
+      "source": "NYCHA",
+      "map_file": "NYCHA_GRAVESEND_map.html",
+      "table_file": "NYCHA_GRAVESEND_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "HABER",
+      "source": "NYCHA",
+      "map_file": "NYCHA_HABER_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "HOPE GARDENS",
+      "source": "PACT",
+      "map_file": "PACT_HOPE_GARDENS_map.html",
+      "table_file": "PACT_HOPE_GARDENS_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "HOWARD",
+      "source": "NYCHA",
+      "map_file": "NYCHA_HOWARD_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "HOWARD AVENUE",
+      "source": "PACT",
+      "map_file": "PACT_HOWARD_AVENUE_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "HOWARD AVENUE-PARK PLACE",
+      "source": "PACT",
+      "map_file": "PACT_HOWARD_AVENUE-PARK_PLACE_map.html",
+      "table_file": "PACT_HOWARD_AVENUE-PARK_PLACE_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "HUGHES APARTMENTS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_HUGHES_APARTMENTS_map.html",
+      "table_file": "NYCHA_HUGHES_APARTMENTS_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "HYLAN",
+      "source": "NYCHA",
+      "map_file": "NYCHA_HYLAN_map.html",
+      "table_file": "NYCHA_HYLAN_table.html",
+      "arts_count": 6
+    },
+    {
+      "name": "INDEPENDENCE",
+      "source": "PACT",
+      "map_file": "PACT_INDEPENDENCE_map.html",
+      "table_file": "PACT_INDEPENDENCE_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "INGERSOLL",
+      "source": "NYCHA",
+      "map_file": "NYCHA_INGERSOLL_map.html",
+      "table_file": "NYCHA_INGERSOLL_table.html",
+      "arts_count": 9
+    },
+    {
+      "name": "KINGSBOROUGH",
+      "source": "NYCHA",
+      "map_file": "NYCHA_KINGSBOROUGH_map.html",
+      "table_file": "NYCHA_KINGSBOROUGH_table.html",
+      "arts_count": 7
+    },
+    {
+      "name": "KINGSBOROUGH EXTENSION",
+      "source": "NYCHA",
+      "map_file": "NYCHA_KINGSBOROUGH_EXTENSION_map.html",
+      "table_file": "NYCHA_KINGSBOROUGH_EXTENSION_table.html",
+      "arts_count": 7
+    },
+    {
+      "name": "LAFAYETTE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_LAFAYETTE_map.html",
+      "table_file": "NYCHA_LAFAYETTE_table.html",
+      "arts_count": 9
+    },
+    {
+      "name": "LENOX ROAD-ROCKAWAY PARKWAY",
+      "source": "PACT",
+      "map_file": "PACT_LENOX_ROAD-ROCKAWAY_PARKWAY_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "LINDEN",
+      "source": "PACT",
+      "map_file": "PACT_LINDEN_map.html",
+      "table_file": "PACT_LINDEN_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "LONG ISLAND BAPTIST HOUSES",
+      "source": "NYCHA",
+      "map_file": "NYCHA_LONG_ISLAND_BAPTIST_HOUSES_map.html",
+      "table_file": "NYCHA_LONG_ISLAND_BAPTIST_HOUSES_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "LOW HOUSES",
+      "source": "NYCHA",
+      "map_file": "NYCHA_LOW_HOUSES_map.html",
+      "table_file": "NYCHA_LOW_HOUSES_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "MARCY",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MARCY_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "MARCY AVENUE-GREENE AVENUE SITE A",
+      "source": "PACT",
+      "map_file": "PACT_MARCY_AVENUE-GREENE_AVENUE_SITE_A_map.html",
+      "table_file": "PACT_MARCY_AVENUE-GREENE_AVENUE_SITE_A_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "MARCY AVENUE-GREENE AVENUE SITE B",
+      "source": "PACT",
+      "map_file": "PACT_MARCY_AVENUE-GREENE_AVENUE_SITE_B_map.html",
+      "table_file": "PACT_MARCY_AVENUE-GREENE_AVENUE_SITE_B_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "MARLBORO",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MARLBORO_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "NOSTRAND",
+      "source": "NYCHA",
+      "map_file": "NYCHA_NOSTRAND_map.html",
+      "table_file": "NYCHA_NOSTRAND_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "O'DWYER GARDENS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_O'DWYER_GARDENS_map.html",
+      "table_file": "NYCHA_O'DWYER_GARDENS_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "OCEAN HILL APARTMENTS",
+      "source": "PACT",
+      "map_file": "PACT_OCEAN_HILL_APARTMENTS_map.html",
+      "table_file": "PACT_OCEAN_HILL_APARTMENTS_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "OCEAN HILL-BROWNSVILLE",
+      "source": "PACT",
+      "map_file": "PACT_OCEAN_HILL-BROWNSVILLE_map.html",
+      "table_file": "PACT_OCEAN_HILL-BROWNSVILLE_table.html",
+      "arts_count": 6
+    },
+    {
+      "name": "PALMETTO GARDENS",
+      "source": "PACT",
+      "map_file": "PACT_PALMETTO_GARDENS_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "PARK ROCK REHAB",
+      "source": "PACT",
+      "map_file": "PACT_PARK_ROCK_REHAB_map.html",
+      "table_file": "PACT_PARK_ROCK_REHAB_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "PENNSYLVANIA AVENUE-WORTMAN AVENUE",
+      "source": "PACT",
+      "map_file": "PACT_PENNSYLVANIA_AVENUE-WORTMAN_AVENUE_map.html",
+      "table_file": "PACT_PENNSYLVANIA_AVENUE-WORTMAN_AVENUE_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "PINK",
+      "source": "NYCHA",
+      "map_file": "NYCHA_PINK_map.html",
+      "table_file": "NYCHA_PINK_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "RALPH AVENUE REHAB",
+      "source": "PACT",
+      "map_file": "PACT_RALPH_AVENUE_REHAB_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "RED HOOK EAST",
+      "source": "NYCHA",
+      "map_file": "NYCHA_RED_HOOK_EAST_map.html",
+      "table_file": "NYCHA_RED_HOOK_EAST_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "RED HOOK WEST",
+      "source": "NYCHA",
+      "map_file": "NYCHA_RED_HOOK_WEST_map.html",
+      "table_file": "NYCHA_RED_HOOK_WEST_table.html",
+      "arts_count": 6
+    },
+    {
+      "name": "REID APARTMENTS",
+      "source": "PACT",
+      "map_file": "PACT_REID_APARTMENTS_map.html",
+      "table_file": "PACT_REID_APARTMENTS_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "ROOSEVELT I",
+      "source": "NYCHA",
+      "map_file": "NYCHA_ROOSEVELT_I_map.html",
+      "table_file": "NYCHA_ROOSEVELT_I_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "ROOSEVELT II",
+      "source": "NYCHA",
+      "map_file": "NYCHA_ROOSEVELT_II_map.html",
+      "table_file": "NYCHA_ROOSEVELT_II_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "RUTLAND TOWERS",
+      "source": "PACT",
+      "map_file": "PACT_RUTLAND_TOWERS_map.html",
+      "table_file": "PACT_RUTLAND_TOWERS_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "SARATOGA VILLAGE",
+      "source": "PACT",
+      "map_file": "PACT_SARATOGA_VILLAGE_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "SHEEPSHEAD BAY",
+      "source": "NYCHA",
+      "map_file": "NYCHA_SHEEPSHEAD_BAY_map.html",
+      "table_file": "NYCHA_SHEEPSHEAD_BAY_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "STERLING PLACE REHABS (SAINT JOHNS-STERLING)",
+      "source": "PACT",
+      "map_file": "PACT_STERLING_PLACE_REHABS_(SAINT_JOHNS-STERLING)_map.html",
+      "table_file": "PACT_STERLING_PLACE_REHABS_(SAINT_JOHNS-STERLING)_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "STERLING PLACE REHABS (STERLING-BUFFALO)",
+      "source": "PACT",
+      "map_file": "PACT_STERLING_PLACE_REHABS_(STERLING-BUFFALO)_map.html",
+      "table_file": "PACT_STERLING_PLACE_REHABS_(STERLING-BUFFALO)_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "STUYVESANT GARDENS I",
+      "source": "PACT",
+      "map_file": "PACT_STUYVESANT_GARDENS_I_map.html",
+      "table_file": "PACT_STUYVESANT_GARDENS_I_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "STUYVESANT GARDENS II",
+      "source": "PACT",
+      "map_file": "PACT_STUYVESANT_GARDENS_II_map.html",
+      "table_file": "PACT_STUYVESANT_GARDENS_II_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "SUMNER",
+      "source": "NYCHA",
+      "map_file": "NYCHA_SUMNER_map.html",
+      "table_file": "NYCHA_SUMNER_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "SURFSIDE GARDENS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_SURFSIDE_GARDENS_map.html",
+      "table_file": "NYCHA_SURFSIDE_GARDENS_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "SUTTER AVENUE-UNION STREET",
+      "source": "PACT",
+      "map_file": "PACT_SUTTER_AVENUE-UNION_STREET_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "TAPSCOTT STREET REHAB",
+      "source": "PACT",
+      "map_file": "PACT_TAPSCOTT_STREET_REHAB_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "TAYLOR STREET-WYTHE AVENUE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_TAYLOR_STREET-WYTHE_AVENUE_map.html",
+      "table_file": "NYCHA_TAYLOR_STREET-WYTHE_AVENUE_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "TILDEN",
+      "source": "NYCHA",
+      "map_file": "NYCHA_TILDEN_map.html",
+      "table_file": "NYCHA_TILDEN_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "TOMPKINS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_TOMPKINS_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "UNITY PLAZA (SITES 17,24,25A)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_UNITY_PLAZA_(SITES_17,24,25A)_map.html",
+      "table_file": "NYCHA_UNITY_PLAZA_(SITES_17,24,25A)_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "UNITY PLAZA (SITES 4-27)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_UNITY_PLAZA_(SITES_4-27)_map.html",
+      "table_file": "NYCHA_UNITY_PLAZA_(SITES_4-27)_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "VAN DYKE I",
+      "source": "NYCHA",
+      "map_file": "NYCHA_VAN_DYKE_I_map.html",
+      "table_file": "NYCHA_VAN_DYKE_I_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "VAN DYKE II",
+      "source": "NYCHA",
+      "map_file": "NYCHA_VAN_DYKE_II_map.html",
+      "table_file": "NYCHA_VAN_DYKE_II_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "VANDALIA AVENUE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_VANDALIA_AVENUE_map.html",
+      "table_file": "NYCHA_VANDALIA_AVENUE_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "WEEKSVILLE GARDENS",
+      "source": "PACT",
+      "map_file": "PACT_WEEKSVILLE_GARDENS_map.html",
+      "table_file": "PACT_WEEKSVILLE_GARDENS_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "WHITMAN",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WHITMAN_map.html",
+      "table_file": "NYCHA_WHITMAN_table.html",
+      "arts_count": 7
+    },
+    {
+      "name": "WILLIAMS PLAZA",
+      "source": "PACT",
+      "map_file": "PACT_WILLIAMS_PLAZA_map.html",
+      "table_file": "PACT_WILLIAMS_PLAZA_table.html",
+      "arts_count": 7
+    },
+    {
+      "name": "WILLIAMSBURG",
+      "source": "PACT",
+      "map_file": "PACT_WILLIAMSBURG_map.html",
+      "table_file": "PACT_WILLIAMSBURG_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "WOODSON",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WOODSON_map.html",
+      "table_file": "NYCHA_WOODSON_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "WYCKOFF GARDENS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WYCKOFF_GARDENS_map.html",
+      "table_file": "NYCHA_WYCKOFF_GARDENS_table.html",
+      "arts_count": 16
+    }
+  ],
+  "QUEENS": [
+    {
+      "name": "ASTORIA",
+      "source": "NYCHA",
+      "map_file": "NYCHA_ASTORIA_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BAISLEY PARK",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BAISLEY_PARK_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BEACH 41ST STREET-BEACH CHANNEL DRIVE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BEACH_41ST_STREET-BEACH_CHANNEL_DRIVE_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "BLAND",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BLAND_map.html",
+      "table_file": "NYCHA_BLAND_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "CARLETON MANOR",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CARLETON_MANOR_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "CONLON LIHFE TOWER",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CONLON_LIHFE_TOWER_map.html",
+      "table_file": "NYCHA_CONLON_LIHFE_TOWER_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "FHA REPOSSESSED HOUSES (GROUP I)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_I)_map.html",
+      "table_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_I)_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "FHA REPOSSESSED HOUSES (GROUP II)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_II)_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "FHA REPOSSESSED HOUSES (GROUP III)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_III)_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "FHA REPOSSESSED HOUSES (GROUP IV)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_IV)_map.html",
+      "table_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_IV)_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "FHA REPOSSESSED HOUSES (GROUP IX)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_IX)_map.html",
+      "table_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_IX)_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "FHA REPOSSESSED HOUSES (GROUP V)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_V)_map.html",
+      "table_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_V)_table.html",
+      "arts_count": 4
+    },
+    {
+      "name": "FHA REPOSSESSED HOUSES (GROUP VI)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_VI)_map.html",
+      "table_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_VI)_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "FHA REPOSSESSED HOUSES (GROUP VII)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_VII)_map.html",
+      "table_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_VII)_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "FHA REPOSSESSED HOUSES (GROUP VIII)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_VIII)_map.html",
+      "table_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_VIII)_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "FHA REPOSSESSED HOUSES (GROUP X)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_X)_map.html",
+      "table_file": "NYCHA_FHA_REPOSSESSED_HOUSES_(GROUP_X)_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "HAMMEL",
+      "source": "NYCHA",
+      "map_file": "NYCHA_HAMMEL_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "INTERNATIONAL TOWER",
+      "source": "NYCHA",
+      "map_file": "NYCHA_INTERNATIONAL_TOWER_map.html",
+      "table_file": "NYCHA_INTERNATIONAL_TOWER_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "LATIMER GARDENS",
+      "source": "NYCHA",
+      "map_file": "NYCHA_LATIMER_GARDENS_map.html",
+      "table_file": "NYCHA_LATIMER_GARDENS_table.html",
+      "arts_count": 6
+    },
+    {
+      "name": "LEAVITT STREET-34TH AVENUE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_LEAVITT_STREET-34TH_AVENUE_map.html",
+      "table_file": "NYCHA_LEAVITT_STREET-34TH_AVENUE_table.html",
+      "arts_count": 7
+    },
+    {
+      "name": "OCEAN BAY APARTMENTS (BAYSIDE)",
+      "source": "PACT",
+      "map_file": "PACT_OCEAN_BAY_APARTMENTS_(BAYSIDE)_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "OCEAN BAY APARTMENTS (OCEANSIDE)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_OCEAN_BAY_APARTMENTS_(OCEANSIDE)_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "POMONOK",
+      "source": "NYCHA",
+      "map_file": "NYCHA_POMONOK_map.html",
+      "table_file": "NYCHA_POMONOK_table.html",
+      "arts_count": 5
+    },
+    {
+      "name": "QUEENSBRIDGE NORTH",
+      "source": "NYCHA",
+      "map_file": "NYCHA_QUEENSBRIDGE_NORTH_map.html",
+      "table_file": "NYCHA_QUEENSBRIDGE_NORTH_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "QUEENSBRIDGE SOUTH",
+      "source": "NYCHA",
+      "map_file": "NYCHA_QUEENSBRIDGE_SOUTH_map.html",
+      "table_file": "NYCHA_QUEENSBRIDGE_SOUTH_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "RAVENSWOOD",
+      "source": "NYCHA",
+      "map_file": "NYCHA_RAVENSWOOD_map.html",
+      "table_file": "NYCHA_RAVENSWOOD_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "REDFERN",
+      "source": "NYCHA",
+      "map_file": "NYCHA_REDFERN_map.html",
+      "table_file": "NYCHA_REDFERN_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "REHAB PROGRAM (COLLEGE POINT)",
+      "source": "NYCHA",
+      "map_file": "NYCHA_REHAB_PROGRAM_(COLLEGE_POINT)_map.html",
+      "table_file": "NYCHA_REHAB_PROGRAM_(COLLEGE_POINT)_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "SHELTON HOUSE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_SHELTON_HOUSE_map.html",
+      "table_file": "NYCHA_SHELTON_HOUSE_table.html",
+      "arts_count": 8
+    },
+    {
+      "name": "SOUTH JAMAICA I",
+      "source": "NYCHA",
+      "map_file": "NYCHA_SOUTH_JAMAICA_I_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "SOUTH JAMAICA II",
+      "source": "NYCHA",
+      "map_file": "NYCHA_SOUTH_JAMAICA_II_map.html",
+      "table_file": "NYCHA_SOUTH_JAMAICA_II_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "WOODSIDE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_WOODSIDE_map.html",
+      "table_file": "NYCHA_WOODSIDE_table.html",
+      "arts_count": 3
+    }
+  ],
+  "STATEN ISLAND": [
+    {
+      "name": "BERRY",
+      "source": "NYCHA",
+      "map_file": "NYCHA_BERRY_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "CASSIDY-LAFAYETTE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_CASSIDY-LAFAYETTE_map.html",
+      "table_file": "NYCHA_CASSIDY-LAFAYETTE_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "MARINER'S HARBOR",
+      "source": "NYCHA",
+      "map_file": "NYCHA_MARINER'S_HARBOR_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "NEW LANE AREA",
+      "source": "NYCHA",
+      "map_file": "NYCHA_NEW_LANE_AREA_map.html",
+      "table_file": "NYCHA_NEW_LANE_AREA_table.html",
+      "arts_count": 2
+    },
+    {
+      "name": "RICHMOND TERRACE",
+      "source": "NYCHA",
+      "map_file": "NYCHA_RICHMOND_TERRACE_map.html",
+      "table_file": "NYCHA_RICHMOND_TERRACE_table.html",
+      "arts_count": 1
+    },
+    {
+      "name": "SOUTH BEACH",
+      "source": "NYCHA",
+      "map_file": "NYCHA_SOUTH_BEACH_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "STAPLETON",
+      "source": "NYCHA",
+      "map_file": "NYCHA_STAPLETON_map.html",
+      "table_file": "NYCHA_STAPLETON_table.html",
+      "arts_count": 3
+    },
+    {
+      "name": "TODT HILL",
+      "source": "NYCHA",
+      "map_file": "NYCHA_TODT_HILL_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "WEST BRIGHTON I",
+      "source": "PACT",
+      "map_file": "PACT_WEST_BRIGHTON_I_map.html",
+      "table_file": "",
+      "arts_count": 0
+    },
+    {
+      "name": "WEST BRIGHTON II",
+      "source": "PACT",
+      "map_file": "PACT_WEST_BRIGHTON_II_map.html",
+      "table_file": "",
+      "arts_count": 0
+    }
+  ]
+};
+
+function updateProjects() {
+  const boro  = document.getElementById("dd_boro").value;
+  const ddP   = document.getElementById("dd_proj");
+  const devs  = LOOKUP[boro] || [];
+  ddP.innerHTML = "";
+  devs.forEach(d => {
+    const opt = document.createElement("option");
+    opt.value = JSON.stringify(d);
+    opt.text  = d.name + " (" + d.source + ")";
+    ddP.appendChild(opt);
+  });
+}
+
+function generateMap() {
+  const ddP   = document.getElementById("dd_proj");
+  if (!ddP.value) return;
+  const d     = JSON.parse(ddP.value);
+  const boro  = document.getElementById("dd_boro").value;
+  const status = document.getElementById("status");
+
+  status.textContent = "Loading map...";
+
+  // Map iframe
+  const mf   = document.getElementById("map_frame");
+  const mph  = document.getElementById("map_placeholder");
+  mf.src     = d.map_file;
+  mf.style.display = "block";
+  mph.style.display = "none";
+  document.getElementById("map_title").textContent =
+    d.source + ": " + d.name;
+
+  mf.onload = function() {
+    status.textContent =
+      "✔ " + d.name + " | " + d.arts_count +
+      " arts org(s) within 0.5 miles. Hover markers for details.";
+  };
+
+  // Table iframe
+  const tf   = document.getElementById("table_frame");
+  const tph  = document.getElementById("table_placeholder");
+  if (d.table_file) {
+    tf.src   = d.table_file;
+    tf.style.display = "block";
+    tph.style.display = "none";
+    document.getElementById("table_title").textContent =
+      "Arts Organizations (" + d.arts_count + ")";
+  } else {
+    tf.style.display = "none";
+    tph.style.display = "flex";
+    tph.textContent  = "No arts organizations found within 0.5 miles.";
+    document.getElementById("table_title").textContent =
+      "Arts Organizations (0)";
+  }
+}
+
+window.onload = function() { updateProjects(); };
+</script>
+</body>
+</html>
