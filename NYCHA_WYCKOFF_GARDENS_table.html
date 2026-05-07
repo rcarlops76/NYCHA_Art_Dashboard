@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+  body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+         background:#0d1b2a;color:#e8d5b0;margin:0;padding:16px;}
+  h2   {color:white;font-size:15px;margin-bottom:4px;}
+  p    {color:#c9a96e;font-size:12px;font-family:monospace;margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th   {background:#1e2f45;color:#c9a96e;padding:8px 10px;
+         text-align:left;border-bottom:2px solid #c9a96e;}
+  td   {padding:7px 10px;border-bottom:1px solid #1e2f45;color:#e8d5b0;}
+  tr:hover td {background:#1e2f45;}
+  .count {color:#e74c3c;font-weight:bold;}
+</style></head><body>
+<h2>Arts Organizations within 0.5-mile radius</h2>
+<p>NYCHA: WYCKOFF GARDENS &nbsp;|&nbsp; Borough: BROOKLYN
+   &nbsp;|&nbsp; Total found:
+   <span class="count">16</span></p>
+<table class="dataframe arts-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>org_name</th>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>STREET_NUM</th>
+      <th>STREET_NAME</th>
+      <th>CITY</th>
+      <th>STATE</th>
+      <th>ZIP</th>
+      <th>BOROUGH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Roulette Intermedium</td>
+      <td>88</td>
+      <td>Roulette Intermedium</td>
+      <td>509</td>
+      <td>Atlantic Ave</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Groundswell Community Mural Project</td>
+      <td>147</td>
+      <td>Groundswell Community Mural Project</td>
+      <td>540</td>
+      <td>President St</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11215</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>A Public Space Literary Projects, Inc.</td>
+      <td>247</td>
+      <td>A Public Space Literary Projects, Inc.</td>
+      <td>—</td>
+      <td>323 Dean Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Atlantic Avenue Local Development Corporation</td>
+      <td>464</td>
+      <td>Atlantic Avenue Local Development Corporation</td>
+      <td>—</td>
+      <td>494 Atlantic Avenue</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Dancewave, Inc.</td>
+      <td>885</td>
+      <td>Dancewave, Inc.</td>
+      <td>—</td>
+      <td>182 4th Avenue</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Film Biz Recycling</td>
+      <td>1043</td>
+      <td>Film Biz Recycling</td>
+      <td>—</td>
+      <td>540 President Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11215</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Gowanus Canal Conservancy, Inc.</td>
+      <td>1147</td>
+      <td>Gowanus Canal Conservancy, Inc.</td>
+      <td>—</td>
+      <td>543 Union Street</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>11215</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Groundswell Community Mural Project</td>
+      <td>1169</td>
+      <td>Groundswell Community Mural Project</td>
+      <td>—</td>
+      <td>540 President St. Ste 1A</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11215</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Immaterial Incorporated</td>
+      <td>1265</td>
+      <td>Immaterial Incorporated</td>
+      <td>—</td>
+      <td>181 Wyckoff Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Proteus Gowanus Interdisciplinary Gallery, Inc.</td>
+      <td>1951</td>
+      <td>Proteus Gowanus Interdisciplinary Gallery, Inc.</td>
+      <td>—</td>
+      <td>543 UNION ST STE 1C</td>
+      <td>BROOKLYN</td>
+      <td>NY</td>
+      <td>11215</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Spaceworks NYC, Inc.</td>
+      <td>2177</td>
+      <td>Spaceworks NYC, Inc.</td>
+      <td>—</td>
+      <td>540 President Street, 2E</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11215</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Street Lab, Inc.</td>
+      <td>2226</td>
+      <td>Street Lab, Inc.</td>
+      <td>—</td>
+      <td>280 Nevins Street, #2-9</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Teachers & Writers Collaborative, Inc.</td>
+      <td>2263</td>
+      <td>Teachers & Writers Collaborative, Inc.</td>
+      <td>—</td>
+      <td>540 President Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11215</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Theater Mitu, Inc.</td>
+      <td>2278</td>
+      <td>Theater Mitu, Inc.</td>
+      <td>—</td>
+      <td>578 Sackett Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Watson Arts, Inc</td>
+      <td>2418</td>
+      <td>Watson Arts, Inc</td>
+      <td>—</td>
+      <td>147 Bergen Street</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Where We At: Black Women Artists, Inc.</td>
+      <td>2434</td>
+      <td>Where We At: Black Women Artists, Inc.</td>
+      <td>—</td>
+      <td>89 Fifth Avenue, Suite 129</td>
+      <td>Brooklyn</td>
+      <td>NY</td>
+      <td>11217</td>
+      <td>Brooklyn</td>
+    </tr>
+  </tbody>
+</table>
+</body></html>
